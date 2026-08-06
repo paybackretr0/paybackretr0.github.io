@@ -44,30 +44,30 @@ npm run build
 ## Deploy to GitHub Pages
 
 The site is hosted as a GitHub Pages **user page** at
-`https://maturino.github.io/` and redeploys **automatically on every push to
-`main`** via [GitHub Actions](.github/workflows/deploy.yml).
+`https://paybackretr0.github.io/` and redeploys **automatically on every push
+to `main`** via [GitHub Actions](.github/workflows/deploy.yml).
 
 ### First-time setup
 
-1. Create a public repository on GitHub named `maturino.github.io`
+1. Create a public repository on GitHub named `paybackretr0.github.io`
    (exactly — user pages must match your account name; don't initialize it
    with a README, the project already has one).
 2. From the project root:
 
    ```sh
-   git remote add origin git@github.com:<account>/maturino.github.io.git
+   git remote add origin git@github.com:paybackretr0/paybackretr0.github.io.git
    git push -u origin main
    ```
 
    Or, with the GitHub CLI (after `gh auth login`):
 
    ```sh
-   gh repo create maturino.github.io --public --source . --remote origin --push
+   gh repo create paybackretr0.github.io --public --source . --remote origin --push
    ```
 
 3. Open the repository on GitHub → **Settings → Pages** → under *Build and
    deployment* set **Source** to **GitHub Actions**.
 4. The first deploy runs automatically from the push. When it finishes, the
-   site is live at `https://maturino.github.io/`.
+   site is live at `https://paybackretr0.github.io/`.
 
 From then on, every `git push` to `main` builds and deploys the latest version.

@@ -1,15 +1,22 @@
 <template>
   <section id="contact" class="section section-loose scroll-mt-24">
-    <div v-reveal class="glass-strong relative overflow-hidden rounded-[26px] px-6 py-16 text-center sm:px-14 sm:py-20">
+    <div
+      v-reveal
+      class="glass-strong relative overflow-hidden rounded-[26px] px-6 py-16 text-center sm:px-14 sm:py-20"
+    >
       <span class="absolute inset-x-0 top-0 h-px bg-primary/50" />
 
       <div class="relative">
-        <p class="flex items-center justify-center gap-3 font-mono text-[11px] tracking-[0.28em] text-accent uppercase">
+        <p
+          class="flex items-center justify-center gap-3 font-mono text-[11px] tracking-[0.28em] text-accent uppercase"
+        >
           <span class="text-muted-2">06</span>
           <span class="h-px w-8 bg-accent/40" />
           <span>{{ t.contact.eyebrow }}</span>
         </p>
-        <h2 class="mx-auto mt-5 max-w-3xl text-4xl leading-[1.08] font-bold tracking-tight text-copy sm:text-5xl lg:text-6xl">
+        <h2
+          class="mx-auto mt-5 max-w-3xl text-4xl leading-[1.08] font-bold tracking-tight text-copy sm:text-5xl lg:text-6xl"
+        >
           <template v-if="titleParts.length > 1">
             <span v-for="(part, i) in titleParts" :key="i">
               <em v-if="i % 2 === 1" class="accent-serif text-gradient">{{ part }}</em>

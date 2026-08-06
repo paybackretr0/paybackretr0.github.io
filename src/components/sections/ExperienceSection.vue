@@ -1,6 +1,11 @@
 <template>
   <section id="experience" class="section section-loose scroll-mt-24">
-    <SectionHeading index="02" :eyebrow="t.experience.eyebrow" :title="t.experience.title" :desc="t.experience.desc" />
+    <SectionHeading
+      index="02"
+      :eyebrow="t.experience.eyebrow"
+      :title="t.experience.title"
+      :desc="t.experience.desc"
+    />
 
     <div class="relative mt-16 ml-3 sm:ml-5">
       <!-- Growing line -->
@@ -23,7 +28,9 @@
 
           <div class="glass card-glow rounded-[22px] p-6 sm:p-7">
             <div class="flex flex-wrap items-center justify-between gap-3">
-              <span class="font-mono text-xs tracking-[0.18em] text-muted-2">{{ entry.period }}</span>
+              <span class="font-mono text-xs tracking-[0.18em] text-muted-2">{{
+                entry.period
+              }}</span>
               <span
                 class="rounded-full border px-3 py-1 font-mono text-[10px] font-medium tracking-[0.16em] uppercase"
                 :class="typeStyles[entry.type]"

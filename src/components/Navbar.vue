@@ -9,7 +9,10 @@
   >
     <!-- pt-[env(...)] only adds space on notched iPhones (0 elsewhere),
          keeping the logo row clear of the status bar with viewport-fit=cover. -->
-    <nav class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 pt-[env(safe-area-inset-top)] sm:gap-4 sm:px-6" aria-label="Main navigation">
+    <nav
+      class="mx-auto flex max-w-6xl items-center justify-between gap-2 px-4 pt-[env(safe-area-inset-top)] sm:gap-4 sm:px-6"
+      aria-label="Main navigation"
+    >
       <!-- Logo -->
       <a
         href="#home"
@@ -62,7 +65,6 @@
           <span :class="locale === 'id' ? 'is-active' : ''">ID</span>
         </button>
 
-
         <button
           type="button"
           class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-tile text-copy transition hover:border-line md:hidden"
@@ -85,10 +87,7 @@
       leave-from-class="translate-y-0 opacity-100"
       leave-to-class="-translate-y-2 opacity-0"
     >
-      <div
-        v-if="open"
-        class="border-t border-line/60 bg-ink/95 px-5 pt-4 pb-6 md:hidden"
-      >
+      <div v-if="open" class="border-t border-line/60 bg-ink/95 px-5 pt-4 pb-6 md:hidden">
         <ul class="space-y-1">
           <li v-for="link in links" :key="link.id">
             <a

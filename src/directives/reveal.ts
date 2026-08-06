@@ -24,21 +24,15 @@ function revealElement(el: HTMLElement) {
   // Delay is applied outside of `animate` — motion-v's own delay option
   // proved unreliable here (staggered elements never animated).
   const start = () =>
-    animate(
-      el,
-      grow
-        ? { scaleY: [0, 1] }
-        : { opacity: [0, 1], y: [24, 0] },
-      {
-        duration: grow ? 0.7 : 0.5,
-        ease: EASE,
-        onComplete: () => {
-          // Clear inline styles so CSS (hover, keyframe animations) works normally.
-          el.style.opacity = ''
-          el.style.transform = ''
-        },
+    animate(el, grow ? { scaleY: [0, 1] } : { opacity: [0, 1], y: [24, 0] }, {
+      duration: grow ? 0.7 : 0.5,
+      ease: EASE,
+      onComplete: () => {
+        // Clear inline styles so CSS (hover, keyframe animations) works normally.
+        el.style.opacity = ''
+        el.style.transform = ''
       },
-    )
+    })
 
   if (delay > 0) staggerTimers.set(el, window.setTimeout(start, delay))
   else start()

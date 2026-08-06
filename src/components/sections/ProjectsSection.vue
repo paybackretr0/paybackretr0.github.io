@@ -16,7 +16,9 @@
         class="group inline-flex w-fit shrink-0 items-center gap-2 text-sm font-semibold text-muted transition-colors hover:text-accent"
       >
         {{ t.projects.more }}
-        <ArrowUpRight class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        <ArrowUpRight
+          class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+        />
       </a>
     </div>
 

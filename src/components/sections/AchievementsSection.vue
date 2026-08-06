@@ -43,7 +43,10 @@
           {{ item.title[locale] }}
         </h3>
         <p class="mt-1.5 text-xs font-medium text-primary-soft">{{ item.org[locale] }}</p>
-        <p class="mt-3 text-[13px] leading-6 text-muted" :class="item.id === 'bangkit' ? 'sm:text-sm' : ''">
+        <p
+          class="mt-3 text-[13px] leading-6 text-muted"
+          :class="item.id === 'bangkit' ? 'sm:text-sm' : ''"
+        >
           {{ item.desc[locale] }}
         </p>
 

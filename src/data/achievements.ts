@@ -25,7 +25,10 @@ export const achievements: Achievement[] = [
     id: 'impact-hackathon',
     type: 'hackathon',
     year: '2024',
-    title: { en: '2nd Place — Impact National Hackathon', id: 'Juara II — Impact National Hackathon' },
+    title: {
+      en: '2nd Place — Impact National Hackathon',
+      id: 'Juara II — Impact National Hackathon',
+    },
     org: { en: 'Maxy Academy', id: 'Maxy Academy' },
     desc: {
       en: 'Placed second in a national hackathon with a civic-tech solution built under time pressure.',
@@ -36,7 +39,10 @@ export const achievements: Achievement[] = [
     id: 'cybertech-hackathon',
     type: 'hackathon',
     year: '2024',
-    title: { en: '3rd Place — National Cybertech Hackathon', id: 'Juara III — Hackathon Nasional Cybertech' },
+    title: {
+      en: '3rd Place — National Cybertech Hackathon',
+      id: 'Juara III — Hackathon Nasional Cybertech',
+    },
     org: { en: 'Politeknik Negeri Padang', id: 'Politeknik Negeri Padang' },
     desc: {
       en: 'Won third place in a national hackathon, competing against teams from across Indonesia.',
@@ -47,7 +53,10 @@ export const achievements: Achievement[] = [
     id: 'neo-telemetri',
     type: 'award',
     year: '2024 — 2025',
-    title: { en: 'Leadership — UKM Neo Telemetri UNAND', id: 'Kepemimpinan — UKM Neo Telemetri UNAND' },
+    title: {
+      en: 'Leadership — UKM Neo Telemetri UNAND',
+      id: 'Kepemimpinan — UKM Neo Telemetri UNAND',
+    },
     org: { en: 'Neo Telemetri', id: 'Neo Telemetri' },
     desc: {
       en: 'Coordinator of the Organizing Committee, PIC of the national Firetech 2025 Hackathon, and Event Coordinator of Open Recruitment 14.',

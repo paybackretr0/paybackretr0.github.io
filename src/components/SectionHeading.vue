@@ -1,7 +1,10 @@
 <template>
   <div v-reveal class="max-w-3xl" :class="alignClasses">
     <!-- Mono index + rule + eyebrow -->
-    <p class="flex items-center gap-3 font-mono text-[11px] tracking-[0.28em] text-accent uppercase" :class="eyebrowAlign">
+    <p
+      class="flex items-center gap-3 font-mono text-[11px] tracking-[0.28em] text-accent uppercase"
+      :class="eyebrowAlign"
+    >
       <span v-if="index" class="text-muted-2">{{ index }}</span>
       <span class="h-px w-8 bg-accent/40" />
       <span>{{ eyebrow }}</span>
@@ -20,7 +23,11 @@
       <template v-else>{{ title }}</template>
     </h2>
 
-    <p v-if="desc" class="mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg" :class="descAlign">
+    <p
+      v-if="desc"
+      class="mt-6 max-w-xl text-base leading-7 text-muted sm:text-lg"
+      :class="descAlign"
+    >
       {{ desc }}
     </p>
   </div>

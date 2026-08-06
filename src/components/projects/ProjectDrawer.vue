@@ -17,11 +17,15 @@
           <header class="border-b border-line/60 px-6 py-5">
             <div class="flex items-start justify-between gap-4">
               <div class="min-w-0">
-                <p class="font-mono text-[10px] tracking-[0.2em] text-accent uppercase">{{ project.category }}</p>
+                <p class="font-mono text-[10px] tracking-[0.2em] text-accent uppercase">
+                  {{ project.category }}
+                </p>
                 <h3 class="mt-2 text-xl leading-snug font-bold tracking-tight text-copy">
                   {{ project.title[locale] }}
                 </h3>
-                <p class="mt-1.5 font-mono text-[11px] text-muted-2">{{ project.year }}</p>
+                <p class="mt-1.5 font-mono text-[11px] text-muted-2">
+                  {{ project.role }}<span class="text-line"> · </span>{{ project.year }}
+                </p>
               </div>
               <button
                 ref="closeBtn"
@@ -41,14 +45,20 @@
 
             <!-- System architecture -->
             <section class="mt-8">
-              <h4 class="flex items-center gap-2 font-mono text-[10.5px] tracking-[0.22em] text-copy/70 uppercase">
+              <h4
+                class="flex items-center gap-2 font-mono text-[10.5px] tracking-[0.22em] text-copy/70 uppercase"
+              >
                 <Boxes class="h-3.5 w-3.5 text-primary-soft" />
                 {{ t.projects.drawer.architecture }}
               </h4>
               <div class="mt-4 flex flex-col">
                 <template v-for="(layer, i) in project.architecture" :key="i">
-                  <div class="flex items-center gap-3.5 rounded-[14px] border border-line bg-tile-2 px-4 py-3 transition-colors duration-300 hover:border-line">
-                    <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-line bg-tile text-muted-2">
+                  <div
+                    class="flex items-center gap-3.5 rounded-[14px] border border-line bg-tile-2 px-4 py-3 transition-colors duration-300 hover:border-line"
+                  >
+                    <span
+                      class="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-line bg-tile text-muted-2"
+                    >
                       <component :is="layerIcon(layer.layer)" class="h-4 w-4" />
                     </span>
                     <div class="min-w-0 flex-1">
@@ -71,7 +81,9 @@
 
             <!-- Database schema -->
             <section class="mt-8">
-              <h4 class="flex items-center gap-2 font-mono text-[10.5px] tracking-[0.22em] text-copy/70 uppercase">
+              <h4
+                class="flex items-center gap-2 font-mono text-[10.5px] tracking-[0.22em] text-copy/70 uppercase"
+              >
                 <Database class="h-3.5 w-3.5 text-primary-soft" />
                 {{ t.projects.drawer.schema }}
               </h4>
@@ -81,7 +93,9 @@
                   :key="table.table"
                   class="overflow-hidden rounded-[16px] border border-line/70 bg-elevated/60"
                 >
-                  <div class="flex items-center gap-2 border-b border-line/60 bg-tile-2 px-4 py-2 font-mono text-[11px] font-semibold text-accent">
+                  <div
+                    class="flex items-center gap-2 border-b border-line/60 bg-tile-2 px-4 py-2 font-mono text-[11px] font-semibold text-accent"
+                  >
                     <Table2 class="h-3 w-3" />
                     {{ table.table }}
                   </div>
@@ -113,13 +127,21 @@
 
             <!-- Features -->
             <section class="mt-8">
-              <h4 class="flex items-center gap-2 font-mono text-[10.5px] tracking-[0.22em] text-copy/70 uppercase">
+              <h4
+                class="flex items-center gap-2 font-mono text-[10.5px] tracking-[0.22em] text-copy/70 uppercase"
+              >
                 <CheckCircle2 class="h-3.5 w-3.5 text-primary-soft" />
                 {{ t.projects.features }}
               </h4>
               <ul class="mt-4 grid gap-2">
-                <li v-for="feature in project.features[locale]" :key="feature" class="flex items-start gap-2.5">
-                  <span class="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-accent/15">
+                <li
+                  v-for="feature in project.features[locale]"
+                  :key="feature"
+                  class="flex items-start gap-2.5"
+                >
+                  <span
+                    class="mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-accent/15"
+                  >
                     <Check class="h-3 w-3 text-accent" />
                   </span>
                   <span class="text-[12.5px] leading-5 text-copy/85">{{ feature }}</span>
@@ -140,7 +162,12 @@
 
             <!-- Actions -->
             <div class="mt-8 flex gap-2.5">
-              <a :href="project.github" target="_blank" rel="noreferrer" class="btn btn-ghost flex-1 px-3">
+              <a
+                :href="project.github"
+                target="_blank"
+                rel="noreferrer"
+                class="btn btn-ghost flex-1 px-3"
+              >
                 <Github class="h-4 w-4" />
                 {{ t.projects.code }}
               </a>
@@ -206,10 +233,18 @@ const keyStyles = {
 
 function layerIcon(layer: string): LucideIcon {
   const l = layer.toLowerCase()
-  if (l.includes('client') || l.includes('ui') || l.includes('browser') || l.includes('app')) return MonitorSmartphone
-  if (l.includes('api') || l.includes('rest') || l.includes('controller') || l.includes('middleware')) return Server
+  if (l.includes('client') || l.includes('ui') || l.includes('browser') || l.includes('app'))
+    return MonitorSmartphone
+  if (
+    l.includes('api') ||
+    l.includes('rest') ||
+    l.includes('controller') ||
+    l.includes('middleware')
+  )
+    return Server
   if (l.includes('cache')) return Zap
-  if (l.includes('database') || l.includes('sqlite') || l.includes('room') || l.includes('db')) return Database
+  if (l.includes('database') || l.includes('sqlite') || l.includes('room') || l.includes('db'))
+    return Database
   if (l.includes('repository') || l.includes('orm')) return FolderGit2
   if (l.includes('viewmodel') || l.includes('mvvm')) return Boxes
   if (l.includes('location') || l.includes('geo')) return MapPin
@@ -245,7 +280,9 @@ function onKeydown(e: KeyboardEvent) {
     const panel = panelRef.value
     if (!panel) return
     const focusable = Array.from(
-      panel.querySelectorAll<HTMLElement>('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'),
+      panel.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+      ),
     ).filter((el) => el.offsetParent !== null)
     const first = focusable[0] ?? null
     const last = focusable[focusable.length - 1] ?? null

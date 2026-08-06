@@ -6,7 +6,10 @@
   >
     <div class="mx-auto flex w-full max-w-6xl flex-col items-center px-6 text-center">
       <!-- Mono kicker -->
-      <p data-hero class="flex items-center gap-3 font-mono text-[11px] tracking-[0.3em] text-accent uppercase">
+      <p
+        data-hero
+        class="flex items-center gap-3 font-mono text-[11px] tracking-[0.3em] text-accent uppercase"
+      >
         <span class="h-px w-10 bg-accent/40" />
         {{ t.hero.eyebrow }}
       </p>
@@ -22,10 +25,14 @@
 
       <!-- Role + tagline -->
       <div data-hero class="mt-8">
-        <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-lg font-medium tracking-tight sm:text-2xl">
+        <p
+          class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-lg font-medium tracking-tight sm:text-2xl"
+        >
           {{ t.hero.role }}
           <span class="hidden h-1 w-1 rounded-full bg-accent sm:block" />
-          <span class="font-mono text-sm tracking-[0.2em] text-muted uppercase">Mobile &amp; Web</span>
+          <span class="font-mono text-sm tracking-[0.2em] text-muted uppercase"
+            >Mobile &amp; Web</span
+          >
         </p>
       </div>
 
@@ -38,7 +45,10 @@
       </p>
 
       <!-- CTAs -->
-      <div data-hero class="mt-10 flex w-full max-w-md flex-col items-stretch gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:gap-4">
+      <div
+        data-hero
+        class="mt-10 flex w-full max-w-md flex-col items-stretch gap-3 sm:w-auto sm:max-w-none sm:flex-row sm:items-center sm:gap-4"
+      >
         <MagneticButton class="w-full sm:w-auto">
           <a
             href="#projects"
@@ -46,17 +56,29 @@
             @click.prevent="goTo('#projects')"
           >
             {{ t.hero.viewProjects }}
-            <ArrowRight class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+            <ArrowRight
+              class="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
+            />
           </a>
         </MagneticButton>
         <MagneticButton class="w-full sm:w-auto">
-          <a href="./porto.pdf" target="_blank" rel="noopener" class="btn btn-ghost w-full px-7 py-3.5 text-base sm:w-auto">
+          <a
+            href="./porto.pdf"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost w-full px-7 py-3.5 text-base sm:w-auto"
+          >
             <FileText class="h-4 w-4" />
             {{ t.hero.portfolio }}
           </a>
         </MagneticButton>
         <MagneticButton class="w-full sm:w-auto">
-          <a href="./cv.pdf" target="_blank" rel="noopener" class="btn btn-ghost w-full px-7 py-3.5 text-base sm:w-auto">
+          <a
+            href="./cv.pdf"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost w-full px-7 py-3.5 text-base sm:w-auto"
+          >
             <Download class="h-4 w-4" />
             {{ t.hero.downloadCv }}
           </a>
@@ -114,6 +136,7 @@ import {
   type LucideIcon,
 } from 'lucide-vue-next'
 import { useLang } from '@/composables/useLang'
+import { projects } from '@/data/projects'
 import { scrollToTarget } from '@/composables/useSmoothScroll'
 import SocialLinks from '@/components/SocialLinks.vue'
 import MagneticButton from '@/components/MagneticButton.vue'
@@ -125,8 +148,18 @@ const heroEl = ref<HTMLElement | null>(null)
 
 const stats = computed(() => [
   { value: 2, suffix: '+', label: t.value.hero.stats.years, icon: Briefcase as LucideIcon },
-  { value: 8, suffix: '+', label: t.value.hero.stats.projects, icon: FolderGit2 as LucideIcon },
-  { value: 3, suffix: '', label: t.value.hero.stats.platforms, icon: MonitorSmartphone as LucideIcon },
+  {
+    value: projects.length,
+    suffix: '',
+    label: t.value.hero.stats.projects,
+    icon: FolderGit2 as LucideIcon,
+  },
+  {
+    value: 3,
+    suffix: '',
+    label: t.value.hero.stats.platforms,
+    icon: MonitorSmartphone as LucideIcon,
+  },
   { value: 15, suffix: '+', label: t.value.hero.stats.technologies, icon: Boxes as LucideIcon },
 ])
 

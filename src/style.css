@@ -126,12 +126,9 @@
   --font-display:
     'Cabinet Grotesk', 'Avenir Next', 'Helvetica Neue', ui-sans-serif, system-ui, -apple-system,
     'Segoe UI', sans-serif;
-  --font-sans:
-    'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --font-mono:
-    'JetBrains Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
-  --font-serif:
-    'Instrument Serif', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
+  --font-serif: 'Instrument Serif', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
 
   /* ── Animations ──────────────────────────────────────────── */
   --animate-float: float 6s ease-in-out infinite;
@@ -196,7 +193,6 @@ html.lenis body {
   overflow: hidden;
 }
 
-
 /* ── Base ─────────────────────────────────────────────────── */
 html {
   scroll-behavior: smooth;
@@ -212,7 +208,9 @@ body {
   text-rendering: optimizeLegibility;
   overflow-x: hidden;
   overflow-x: clip;
-  transition: background-color 0.4s ease, color 0.4s ease;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
 }
 
 /* Kill the 300ms double-tap delay / double-tap zoom on touch, while
@@ -323,7 +321,9 @@ body::after {
   .btn-primary {
     @apply text-white;
     background-color: var(--primary);
-    box-shadow: 0 1px 2px rgb(2 6 23 / 0.2), 0 6px 16px -6px rgb(37 99 235 / 0.4);
+    box-shadow:
+      0 1px 2px rgb(2 6 23 / 0.2),
+      0 6px 16px -6px rgb(37 99 235 / 0.4);
   }
   .btn-primary:hover {
     background-color: var(--primary-soft);

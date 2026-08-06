@@ -8,16 +8,23 @@
         <GitBranch class="h-4 w-4 text-primary-soft" />
         <span class="text-copy/90">$ {{ t.projects.stream.gitLog }}</span>
       </div>
-      <div class="flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10.5px] tracking-[0.16em] text-muted-2 uppercase">
-        <span class="flex items-center gap-1.5">
-          <span class="h-2 w-2 rounded-full" :style="{ backgroundColor: 'var(--branch-web)' }" />{{ t.projects.stream.web }}
-        </span>
-        <span class="flex items-center gap-1.5">
-          <span class="h-2 w-2 rounded-full" :style="{ backgroundColor: 'var(--branch-mobile)' }" />{{ t.projects.stream.mobile }}
-        </span>
-        <span class="flex items-center gap-1.5">
-          <span class="h-1.5 w-1.5 rounded-full bg-ok" />{{ t.projects.stream.head }}
-        </span>
+      <div class="flex items-center gap-1 rounded-full border border-line bg-tile p-1">
+        <button
+          v-for="f in filterOptions"
+          :key="f.key"
+          type="button"
+          class="flex items-center gap-1.5 rounded-full px-3.5 py-1.5 font-mono text-[10.5px] font-semibold tracking-[0.14em] transition-all duration-300 uppercase"
+          :class="
+            filter === f.key
+              ? 'bg-primary/20 text-copy shadow-[0_0_0_1px_var(--line)]'
+              : 'text-muted-2 hover:text-copy'
+          "
+          :aria-pressed="filter === f.key"
+          @click="filter = f.key"
+        >
+          <span v-if="f.dot" class="h-1.5 w-1.5 rounded-full" :style="{ backgroundColor: f.dot }" />
+          {{ f.label }}
+        </button>
       </div>
     </div>
 
@@ -127,6 +134,7 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ref } from 'vue'
 import { ChevronRight, GitBranch } from 'lucide-vue-next'
 import { useLang } from '@/composables/useLang'
 import { projects, type Project } from '@/data/projects'
@@ -141,8 +149,19 @@ const BRANCH = {
 } as const
 
 type Branch = keyof typeof BRANCH
+type FilterKey = 'all' | Branch
 
-const isWeb = (p: Project) => p.category.toLowerCase().includes('web')
+/** web vs mobile is derived from the category, same rule as the branch line. */
+const branchOf = (p: Project): Branch =>
+  p.category.toLowerCase().includes('web') ? 'web' : 'mobile'
+
+const filter = ref<FilterKey>('all')
+
+const filterOptions = computed(() => [
+  { key: 'all' as const, label: t.value.projects.stream.all, dot: undefined as string | undefined },
+  { key: 'web' as const, label: t.value.projects.stream.web, dot: 'var(--branch-web)' },
+  { key: 'mobile' as const, label: t.value.projects.stream.mobile, dot: 'var(--branch-mobile)' },
+])
 
 function hashOf(id: string): string {
   let h = 2166136261
@@ -173,41 +192,54 @@ interface TimelineCommit {
 type TimelineItem = TimelineYear | TimelineCommit
 
 /* Newest first, like `git log`. Year markers are inserted when the
-   commit's starting year changes, giving the "branches per year" feel. */
+   commit's starting year changes, giving the "branches per year" feel.
+   The whole timeline is a computed so the web/mobile filter can re-build
+   it (year markers only appear when a year has commits on this branch). */
 const ORDER = [
+  'bss',
   'scholarship',
   'pkm',
+  'telemetri-admin',
+  'aceed-expo',
   'telemetri',
   'excamotion',
   'whistleblowing',
-  'dpmptsp-web',
+  'dpmptsp-profile',
+  'dpmptsp-visitor',
   'simsapras',
   'bersama-rakyat',
+  'agrowista',
 ]
 
-const timeline: TimelineItem[] = []
-let lastYear: number | null = null
-let commitIndex = 0
-for (const id of ORDER) {
-  // ORDER only contains known project ids
-  const project = projects.find((p) => p.id === id) as Project
-  const year = parseInt(project.year, 10)
-  if (year !== lastYear) {
-    timeline.push({ kind: 'year', key: `year-${year}`, year })
-    lastYear = year
+const timeline = computed<TimelineItem[]>(() => {
+  const items: TimelineItem[] = []
+  let lastYear: number | null = null
+  let commitIndex = 0
+  for (const id of ORDER) {
+    // ORDER only contains known project ids
+    const project = projects.find((p) => p.id === id) as Project
+    const branch = branchOf(project)
+    if (filter.value !== 'all' && branch !== filter.value) continue
+    const year = parseInt(project.year, 10)
+    if (year !== lastYear) {
+      items.push({ kind: 'year', key: `year-${year}-${filter.value}`, year })
+      lastYear = year
+    }
+    items.push({
+      kind: 'commit',
+      key: project.id,
+      project,
+      side: commitIndex % 2 === 0 ? 'left' : 'right',
+      // HEAD stays on the newest commit overall (ORDER[0]) regardless of filter.
+      head: project.id === ORDER[0],
+      branch,
+      hash: hashOf(project.id),
+      delay: commitIndex,
+    })
+    commitIndex++
   }
-  timeline.push({
-    kind: 'commit',
-    key: project.id,
-    project,
-    side: commitIndex % 2 === 0 ? 'left' : 'right',
-    head: commitIndex === 0,
-    branch: isWeb(project) ? 'web' : 'mobile',
-    hash: hashOf(project.id),
-    delay: commitIndex,
-  })
-  commitIndex++
-}
+  return items
+})
 
 function commitDelay(item: TimelineItem): number {
   return item.kind === 'commit' ? item.delay : 0

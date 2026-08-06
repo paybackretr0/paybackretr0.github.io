@@ -18,7 +18,12 @@ export const site = {
   portfolio: './porto.pdf',
   github: 'https://github.com/paybackretr0',
   socials: [
-    { label: 'GitHub', handle: '@paybackretr0', href: 'https://github.com/paybackretr0', icon: 'github' },
+    {
+      label: 'GitHub',
+      handle: '@paybackretr0',
+      href: 'https://github.com/paybackretr0',
+      icon: 'github',
+    },
     {
       label: 'LinkedIn',
       handle: '/in/khaliedmtrn',
@@ -31,6 +36,11 @@ export const site = {
       href: 'https://www.instagram.com/khaliedmtrn',
       icon: 'instagram',
     },
-    { label: 'Email', handle: 'khalidmaturino@gmail.com', href: 'mailto:khalidmaturino@gmail.com', icon: 'mail' },
+    {
+      label: 'Email',
+      handle: 'khalidmaturino@gmail.com',
+      href: 'mailto:khalidmaturino@gmail.com',
+      icon: 'mail',
+    },
   ] satisfies SocialLink[],
 } as const

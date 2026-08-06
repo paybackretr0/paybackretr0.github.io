@@ -1,7 +1,15 @@
 export interface TechGroup {
   id: string
   label: { en: string; id: string }
-  icon: 'language' | 'frontend' | 'backend' | 'mobile' | 'database' | 'devops' | 'tools' | 'architecture'
+  icon:
+    | 'language'
+    | 'frontend'
+    | 'backend'
+    | 'mobile'
+    | 'database'
+    | 'devops'
+    | 'tools'
+    | 'architecture'
   items: string[]
 }
 
@@ -28,7 +36,14 @@ export const techStack: TechGroup[] = [
     id: 'mobile',
     label: { en: 'Mobile', id: 'Mobile' },
     icon: 'mobile',
-    items: ['Android SDK', 'Jetpack Compose', 'Flutter', 'XML Layout', 'Coroutines', 'Room Database'],
+    items: [
+      'Android SDK',
+      'Jetpack Compose',
+      'Flutter',
+      'XML Layout',
+      'Coroutines',
+      'Room Database',
+    ],
   },
   {
     id: 'database',

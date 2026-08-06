@@ -1,6 +1,12 @@
 <template>
   <section id="stack" class="section section-loose scroll-mt-24">
-    <SectionHeading index="04" align="right" :eyebrow="t.stack.eyebrow" :title="t.stack.title" :desc="t.stack.desc" />
+    <SectionHeading
+      index="04"
+      align="right"
+      :eyebrow="t.stack.eyebrow"
+      :title="t.stack.title"
+      :desc="t.stack.desc"
+    />
 
     <!-- Bento grid: feature tiles span two columns, small tiles one -->
     <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -11,10 +17,7 @@
         class="glass card-glow group relative overflow-hidden rounded-[22px]"
         :class="[spans[group.id] ?? '', wide.includes(group.id) ? 'p-7 sm:p-8' : 'p-6 sm:p-7']"
       >
-        <span
-          v-if="wide.includes(group.id)"
-          class="absolute inset-x-0 top-0 h-px bg-primary/50"
-        />
+        <span v-if="wide.includes(group.id)" class="absolute inset-x-0 top-0 h-px bg-primary/50" />
 
         <div class="flex items-center gap-4">
           <span
@@ -40,7 +43,17 @@
 </template>
 
 <script setup lang="ts">
-import { Code, Container, Database, Layers, LayoutTemplate, Server, Smartphone, Wrench, type LucideIcon } from 'lucide-vue-next'
+import {
+  Code,
+  Container,
+  Database,
+  Layers,
+  LayoutTemplate,
+  Server,
+  Smartphone,
+  Wrench,
+  type LucideIcon,
+} from 'lucide-vue-next'
 import { useLang } from '@/composables/useLang'
 import { techStack, type TechGroup } from '@/data/techStack'
 import SectionHeading from '@/components/SectionHeading.vue'

@@ -1,9 +1,6 @@
 <template>
   <div aria-hidden="true" class="fixed inset-x-0 top-[env(safe-area-inset-top)] z-[70] h-[3px]">
-    <div
-      class="h-full origin-left bg-primary"
-      :style="{ transform: `scaleX(${progress})` }"
-    />
+    <div class="h-full origin-left bg-primary" :style="{ transform: `scaleX(${progress})` }" />
   </div>
 </template>
 

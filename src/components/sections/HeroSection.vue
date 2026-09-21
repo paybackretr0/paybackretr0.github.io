@@ -114,7 +114,7 @@
         @click.prevent="goTo('#about')"
       >
         <span class="font-mono text-[10px] tracking-[0.28em] uppercase">{{ t.hero.scroll }}</span>
-        <span class="flex h-9 w-5 justify-center rounded-full border border-line pt-1.5">
+        <span class="neu-inset flex h-9 w-5 justify-center rounded-full pt-1.5">
           <span class="animate-scroll-hint h-1.5 w-1 rounded-full bg-accent" />
         </span>
       </a>

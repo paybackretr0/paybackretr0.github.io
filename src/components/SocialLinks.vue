@@ -7,7 +7,7 @@
       target="_blank"
       rel="noreferrer"
       :aria-label="social.label"
-      class="group inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-tile text-muted transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:text-accent hover:shadow-[0_0_18px_rgba(34,211,238,0.25)]"
+      class="group neu-raised-sm inline-flex h-10 w-10 items-center justify-center rounded-xl text-muted transition-all duration-300 hover:-translate-y-0.5 hover:text-accent active:shadow-[var(--neu-pressed)]"
     >
       <component
         :is="icons[social.icon]"

@@ -17,11 +17,9 @@
         class="glass card-glow group relative overflow-hidden rounded-[22px]"
         :class="[spans[group.id] ?? '', wide.includes(group.id) ? 'p-7 sm:p-8' : 'p-6 sm:p-7']"
       >
-        <span v-if="wide.includes(group.id)" class="absolute inset-x-0 top-0 h-px bg-primary/50" />
-
         <div class="flex items-center gap-4">
           <span
-            class="flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] border border-line bg-tile text-muted-2 transition-all duration-300 group-hover:scale-110 group-hover:border-primary/30 group-hover:text-primary-soft"
+            class="neu-raised-sm flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] text-muted-2 transition-all duration-300 group-hover:scale-110 group-hover:text-accent"
           >
             <component :is="groupIcons[group.icon]" class="h-5 w-5" />
           </span>
@@ -32,7 +30,7 @@
           <span
             v-for="item in group.items"
             :key="item"
-            class="rounded-full border border-line bg-tile px-3 py-1 text-[12px] font-medium text-muted transition-colors duration-300 group-hover:border-line group-hover:text-copy/90"
+            class="neu-inset rounded-full px-3 py-1 text-[12px] font-medium text-muted transition-colors duration-300 group-hover:text-copy/90"
           >
             {{ item }}
           </span>

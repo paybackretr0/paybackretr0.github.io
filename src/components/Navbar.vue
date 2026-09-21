@@ -2,9 +2,7 @@
   <header
     class="fixed inset-x-0 top-0 z-50 transition-all duration-500"
     :class="
-      scrolled
-        ? 'border-b border-line/60 bg-[var(--nav-bg)] py-2.5 shadow-[var(--nav-shadow)]'
-        : 'bg-transparent py-4'
+      scrolled ? 'bg-[var(--nav-bg)] py-2.5 shadow-[var(--nav-shadow)]' : 'bg-transparent py-4'
     "
   >
     <!-- pt-[env(...)] only adds space on notched iPhones (0 elsewhere),
@@ -47,7 +45,7 @@
       <div class="flex shrink-0 items-center gap-2 sm:gap-2.5">
         <button
           type="button"
-          class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-tile text-copy transition-all duration-300 hover:border-line hover:bg-tile-2 active:scale-95"
+          class="neu-raised-sm inline-flex h-10 w-10 items-center justify-center rounded-xl text-copy transition-all duration-300 active:shadow-[var(--neu-pressed)]"
           :aria-label="theme === 'dark' ? t.nav.lightMode : t.nav.darkMode"
           @click="toggleTheme"
         >
@@ -67,7 +65,7 @@
 
         <button
           type="button"
-          class="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-line bg-tile text-copy transition hover:border-line md:hidden"
+          class="neu-raised-sm inline-flex h-10 w-10 items-center justify-center rounded-xl text-copy transition md:hidden"
           :aria-expanded="open"
           aria-label="Toggle navigation"
           @click="open = !open"
@@ -87,13 +85,16 @@
       leave-from-class="translate-y-0 opacity-100"
       leave-to-class="-translate-y-2 opacity-0"
     >
-      <div v-if="open" class="border-t border-line/60 bg-ink/95 px-5 pt-4 pb-6 md:hidden">
+      <div
+        v-if="open"
+        class="bg-[var(--nav-bg)] px-5 pt-4 pb-6 shadow-[var(--nav-shadow)] md:hidden"
+      >
         <ul class="space-y-1">
           <li v-for="link in links" :key="link.id">
             <a
               :href="`#${link.id}`"
               class="block rounded-lg px-3 py-2.5 text-sm font-medium transition-colors"
-              :class="activeId === link.id ? 'bg-tile text-copy' : 'text-muted'"
+              :class="activeId === link.id ? 'neu-inset text-copy' : 'text-muted'"
               @click="onMobileNav(link.id)"
             >
               {{ t.nav[link.key] }}

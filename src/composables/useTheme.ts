@@ -24,7 +24,7 @@ function apply(t: Theme) {
   // Keep the browser UI (address bar) in sync on mobile.
   const meta = document.querySelector('meta[name="theme-color"]')
   if (meta) {
-    meta.setAttribute('content', t === 'light' ? '#fafaf9' : '#020617')
+    meta.setAttribute('content', t === 'light' ? '#e0e5ec' : '#262b33')
   }
 }
 

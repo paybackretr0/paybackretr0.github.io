@@ -1,5 +1,5 @@
 <template>
-  <footer class="relative border-t border-line bg-ink/80">
+  <footer class="relative bg-ink shadow-[inset_0_18px_26px_-26px_var(--neu-dark)]">
     <div class="mx-auto max-w-6xl px-6 pt-14 pb-[calc(3.5rem+env(safe-area-inset-bottom))]">
       <div class="flex flex-col items-start justify-between gap-8 md:flex-row md:items-center">
         <div>

@@ -17,19 +17,14 @@
         class="glass card-glow relative flex flex-col overflow-hidden rounded-[22px]"
         :class="[spans[item.id] ?? '', item.id === 'bangkit' ? 'p-7 sm:p-9' : 'p-6']"
       >
-        <span
-          class="absolute inset-x-0 top-0 h-px"
-          :class="item.id === 'bangkit' ? 'bg-accent/60' : 'bg-primary/50'"
-        />
-
         <div class="flex items-center justify-between">
           <span
-            class="flex h-11 w-11 items-center justify-center rounded-[14px] border border-line bg-tile text-muted-2"
+            class="neu-raised-sm flex h-11 w-11 items-center justify-center rounded-[14px] text-muted-2"
           >
             <component :is="typeIcons[item.type]" class="h-5 w-5" />
           </span>
           <span
-            class="rounded-full border px-3 py-1 font-mono text-[10px] font-medium tracking-[0.16em] uppercase"
+            class="neu-inset rounded-full px-3 py-1 font-mono text-[10px] font-medium tracking-[0.16em] uppercase"
             :class="typeStyles[item.type]"
           >
             {{ t.achievements[item.type] }}
@@ -70,10 +65,11 @@ const typeIcons: Record<AchievementType, LucideIcon> = {
   hackathon: Trophy,
 }
 
+/** Soft UI keeps colour in the text only — the chip itself is pressed. */
 const typeStyles: Record<AchievementType, string> = {
-  certification: 'border-primary/40 bg-primary/15 text-primary-soft',
-  award: 'border-warn/40 bg-warn/15 text-warn',
-  hackathon: 'border-fuchsia/40 bg-fuchsia/15 text-fuchsia',
+  certification: 'text-primary-soft',
+  award: 'text-warn',
+  hackathon: 'text-fuchsia',
 }
 
 /** Bento spans — Bangkit spans a wide featured cell. */

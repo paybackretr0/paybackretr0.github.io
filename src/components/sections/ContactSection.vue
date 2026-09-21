@@ -4,8 +4,6 @@
       v-reveal
       class="glass-strong relative overflow-hidden rounded-[26px] px-6 py-16 text-center sm:px-14 sm:py-20"
     >
-      <span class="absolute inset-x-0 top-0 h-px bg-primary/50" />
-
       <div class="relative">
         <p
           class="flex items-center justify-center gap-3 font-mono text-[11px] tracking-[0.28em] text-accent uppercase"

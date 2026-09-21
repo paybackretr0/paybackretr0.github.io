@@ -8,7 +8,7 @@
         <!-- Panel -->
         <aside
           ref="panelRef"
-          class="glass-strong absolute inset-y-0 right-0 flex w-full max-w-[460px] flex-col overflow-hidden border-l border-line shadow-[var(--drawer-shadow)]"
+          class="glass-strong absolute inset-y-0 right-0 flex w-full max-w-[460px] flex-col overflow-hidden shadow-[var(--drawer-shadow)]"
           role="dialog"
           aria-modal="true"
           :aria-label="project.title[locale]"
@@ -24,13 +24,13 @@
                   {{ project.title[locale] }}
                 </h3>
                 <p class="mt-1.5 font-mono text-[11px] text-muted-2">
-                  {{ project.role }}<span class="text-line"> · </span>{{ project.year }}
+                  {{ project.role }}<span class="text-muted-2"> · </span>{{ project.year }}
                 </p>
               </div>
               <button
                 ref="closeBtn"
                 type="button"
-                class="flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] border border-line bg-tile text-muted transition-colors duration-300 hover:border-line hover:text-copy"
+                class="neu-raised-sm flex h-9 w-9 shrink-0 items-center justify-center rounded-[12px] text-muted transition-colors duration-300 hover:text-copy"
                 :aria-label="t.projects.drawer.close"
                 @click="$emit('close')"
               >
@@ -53,11 +53,9 @@
               </h4>
               <div class="mt-4 flex flex-col">
                 <template v-for="(layer, i) in project.architecture" :key="i">
-                  <div
-                    class="flex items-center gap-3.5 rounded-[14px] border border-line bg-tile-2 px-4 py-3 transition-colors duration-300 hover:border-line"
-                  >
+                  <div class="neu-inset flex items-center gap-3.5 rounded-[14px] px-4 py-3">
                     <span
-                      class="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] border border-line bg-tile text-muted-2"
+                      class="neu-raised-sm flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] text-muted-2"
                     >
                       <component :is="layerIcon(layer.layer)" class="h-4 w-4" />
                     </span>
@@ -91,10 +89,10 @@
                 <div
                   v-for="table in project.schema"
                   :key="table.table"
-                  class="overflow-hidden rounded-[16px] border border-line/70 bg-elevated/60"
+                  class="neu-inset overflow-hidden rounded-[16px]"
                 >
                   <div
-                    class="flex items-center gap-2 border-b border-line/60 bg-tile-2 px-4 py-2 font-mono text-[11px] font-semibold text-accent"
+                    class="flex items-center gap-2 border-b border-line/60 px-4 py-2 font-mono text-[11px] font-semibold text-accent"
                   >
                     <Table2 class="h-3 w-3" />
                     {{ table.table }}
@@ -154,7 +152,7 @@
               <span
                 v-for="tech in project.stack"
                 :key="tech"
-                class="rounded-full border border-line bg-tile px-2.5 py-1 font-mono text-[10.5px] text-muted"
+                class="neu-inset rounded-full px-2.5 py-1 font-mono text-[10.5px] text-muted"
               >
                 {{ tech }}
               </span>
@@ -226,9 +224,9 @@ const panelRef = ref<HTMLElement | null>(null)
 let lastFocused: HTMLElement | null = null
 
 const keyStyles = {
-  PK: 'bg-warn/15 text-warn',
-  FK: 'bg-info/15 text-info',
-  UQ: 'bg-success/15 text-success',
+  PK: 'text-warn',
+  FK: 'text-info',
+  UQ: 'text-success',
 } as const
 
 function layerIcon(layer: string): LucideIcon {

@@ -5,23 +5,36 @@
    palette — every color below flows through Tailwind's @theme
    tokens, so a single attribute toggle re-themes the app. */
 :root {
-  /* Surfaces */
-  --ink: #020617;
-  --surface: #0f172a;
-  --elevated: #1e293b;
-  --tile: rgb(255 255 255 / 0.05);
-  --tile-2: rgb(255 255 255 / 0.03);
-  --line: #1e293b;
+  /* ── Neumorphism (Soft UI) ───────────────────────────────
+     Every surface shares the page colour; depth comes from a
+     light/dark shadow pair instead of borders or blur. */
+  --ink: #262b33;
+  --surface: #262b33;
+  --elevated: #2b313a;
+  --tile: #262b33;
+  --tile-2: #2f353f;
+  /* Hairlines are rarer in Soft UI, so the few dividers left are kept
+     soft but still visible (table rows, footer rule, section rules). */
+  --line: rgb(255 255 255 / 0.1);
 
-  /* Brand */
+  /* The dual shadow pair that makes Soft UI read as extruded */
+  --neu-dark: #1b1f26;
+  --neu-light: #323945;
+  --neu-raised: 8px 8px 18px var(--neu-dark), -8px -8px 18px var(--neu-light);
+  --neu-raised-sm: 4px 4px 10px var(--neu-dark), -4px -4px 10px var(--neu-light);
+  --neu-raised-lg: 12px 12px 26px var(--neu-dark), -12px -12px 26px var(--neu-light);
+  --neu-inset: inset 5px 5px 11px var(--neu-dark), inset -5px -5px 11px var(--neu-light);
+  --neu-pressed: inset 3px 3px 7px var(--neu-dark), inset -3px -3px 7px var(--neu-light);
+
+  /* Brand — a single accent carries every highlight */
   --primary: #2563eb;
   --primary-soft: #3b82f6;
-  --accent: #22d3ee;
+  --accent: #60a5fa;
 
   /* Text */
-  --copy: #f8fafc;
-  --muted: #94a3b8;
-  --muted-2: #64748b;
+  --copy: #eef1f6;
+  --muted: #a9b2c0;
+  --muted-2: #7b8494;
 
   /* Status (dark: 300/400 shades, light: 600 shades) */
   --ok: #34d399;
@@ -31,45 +44,50 @@
   --violet: #c4b5fd;
   --fuchsia: #f0abfc;
 
-  /* Surfaces (glass etc.) */
-  --glass: rgb(255 255 255 / 0.04);
-  --glass-border: rgb(255 255 255 / 0.08);
-  --glass-strong: rgb(15 23 42 / 0.78);
-  --backdrop: rgb(2 6 23 / 0.7);
-  --nav-bg: rgb(2 6 23 / 0.7);
-  --nav-shadow: 0 8px 32px -12px rgb(2 6 23 / 0.8);
-  --drawer-shadow: -40px 0 80px -20px rgb(2 6 23 / 0.9);
+  /* Surfaces (kept as aliases so existing classes keep working) */
+  --glass: var(--surface);
+  --glass-border: transparent;
+  --glass-strong: var(--surface);
+  --backdrop: rgb(27 31 38 / 0.72);
+  --nav-bg: var(--surface);
+  --nav-shadow: 0 14px 30px -16px var(--neu-dark), 0 1px 0 var(--neu-light);
+  --drawer-shadow: -24px 0 50px -26px var(--neu-dark);
 
   /* Git stream branches */
-  --branch-web: #3b82f6;
-  --branch-mobile: #22d3ee;
+  --branch-web: #60a5fa;
+  --branch-mobile: #38bdf8;
 
   /* Decorative */
-  --grid-line: rgb(148 163 184 / 0.06);
-  --scroll-track: #020617;
-  --scroll-thumb: #1e293b;
-  --scroll-thumb-hover: #334155;
-  --sel-bg: rgb(37 99 235 / 0.4);
+  --grid-line: transparent;
+  --scroll-track: #262b33;
+  --scroll-thumb: #343b46;
+  --scroll-thumb-hover: #3f4753;
+  --sel-bg: rgb(37 99 235 / 0.45);
   --sel-color: #f8fafc;
 
   color-scheme: dark;
 }
 
 [data-theme='light'] {
-  --ink: #fafaf9;
-  --surface: #ffffff;
-  --elevated: #f2f1ef;
-  --tile: rgb(28 25 23 / 0.05);
-  --tile-2: rgb(28 25 23 / 0.03);
-  --line: #e7e5e2;
+  /* Classic Soft UI base — the same #e0e5ec / #a3b1c6 / #ffffff
+     triple used by the well-known neumorphism examples. */
+  --ink: #e0e5ec;
+  --surface: #e0e5ec;
+  --elevated: #e7ebf1;
+  --tile: #e0e5ec;
+  --tile-2: #d5dae3;
+  --line: rgb(15 23 42 / 0.1);
+
+  --neu-dark: #a3b1c6;
+  --neu-light: #ffffff;
 
   --primary: #2563eb;
   --primary-soft: #1d4ed8;
-  --accent: #0891b2;
+  --accent: #2563eb;
 
-  --copy: #1c1917;
-  --muted: #6b6a66;
-  --muted-2: #9a9994;
+  --copy: #2b3240;
+  --muted: #5c6472;
+  --muted-2: #7d8695;
 
   --ok: #059669;
   --success: #059669;
@@ -78,21 +96,21 @@
   --violet: #7c3aed;
   --fuchsia: #c026d3;
 
-  --glass: rgb(255 255 255 / 0.65);
-  --glass-border: rgb(28 25 23 / 0.08);
-  --glass-strong: rgb(255 255 255 / 0.85);
-  --backdrop: rgb(28 25 23 / 0.35);
-  --nav-bg: rgb(250 250 249 / 0.78);
-  --nav-shadow: 0 8px 32px -12px rgb(28 25 23 / 0.14);
-  --drawer-shadow: -40px 0 80px -20px rgb(28 25 23 / 0.18);
+  --glass: var(--surface);
+  --glass-border: transparent;
+  --glass-strong: var(--surface);
+  --backdrop: rgb(43 50 64 / 0.35);
+  --nav-bg: var(--surface);
+  --nav-shadow: 0 14px 30px -16px var(--neu-dark), 0 1px 0 var(--neu-light);
+  --drawer-shadow: -24px 0 50px -26px var(--neu-dark);
 
   --branch-web: #2563eb;
-  --branch-mobile: #0891b2;
+  --branch-mobile: #0284c7;
 
-  --grid-line: rgb(28 25 23 / 0.05);
-  --scroll-track: #fafaf9;
-  --scroll-thumb: #e2e0dc;
-  --scroll-thumb-hover: #d0cec8;
+  --grid-line: transparent;
+  --scroll-track: #e0e5ec;
+  --scroll-thumb: #c2c9d6;
+  --scroll-thumb-hover: #adb6c6;
   --sel-bg: rgb(37 99 235 / 0.18);
   --sel-color: #1c1917;
 
@@ -158,11 +176,11 @@
     0%,
     100% {
       opacity: 1;
-      box-shadow: 0 0 0 0 rgb(34 211 238 / 0.55);
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent);
     }
     50% {
       opacity: 0.65;
-      box-shadow: 0 0 0 6px rgb(34 211 238 / 0);
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 0%, transparent);
     }
   }
   @keyframes scroll-hint {
@@ -248,18 +266,6 @@ button,
   }
 }
 
-/* ── Film-grain noise overlay (very subtle) ───────────────── */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 90;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-}
-
 ::selection {
   background: var(--sel-bg);
   color: var(--sel-color);
@@ -297,15 +303,35 @@ body::after {
     @apply py-28 sm:py-36;
   }
 
-  /* ── Glass surfaces ─────────────────────────────────────── */
+  /* ── Soft UI surfaces ───────────────────────────────────────
+     Raised = extruded from the page, inset = pressed into it.
+     The existing class names are kept so every section picks up the
+     new skin without markup changes. */
   .glass {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
+    background: var(--surface);
+    border: 0;
+    box-shadow: var(--neu-raised);
   }
 
   .glass-strong {
-    background: var(--glass-strong);
-    border: 1px solid var(--glass-border);
+    background: var(--surface);
+    border: 0;
+    box-shadow: var(--neu-raised-lg);
+  }
+
+  .neu-raised {
+    background: var(--surface);
+    box-shadow: var(--neu-raised);
+  }
+
+  .neu-raised-sm {
+    background: var(--surface);
+    box-shadow: var(--neu-raised-sm);
+  }
+
+  .neu-inset {
+    background: var(--surface);
+    box-shadow: var(--neu-inset);
   }
 
   /* ── Editorial accent text (solid) ──────────────────────── */
@@ -321,42 +347,43 @@ body::after {
   .btn-primary {
     @apply text-white;
     background-color: var(--primary);
-    box-shadow:
-      0 1px 2px rgb(2 6 23 / 0.2),
-      0 6px 16px -6px rgb(37 99 235 / 0.4);
+    box-shadow: var(--neu-raised-sm);
   }
   .btn-primary:hover {
     background-color: var(--primary-soft);
-    box-shadow: 0 8px 20px -6px rgb(37 99 235 / 0.45);
+    box-shadow: var(--neu-raised);
     transform: translateY(-1px);
   }
   .btn-primary:active {
     transform: translateY(0);
+    box-shadow: var(--neu-pressed);
   }
 
   .btn-ghost {
-    @apply border border-line bg-tile text-copy hover:border-line hover:bg-tile-2;
+    @apply text-copy;
+    background: var(--surface);
+    box-shadow: var(--neu-raised-sm);
+  }
+  .btn-ghost:hover {
+    box-shadow: var(--neu-raised);
+  }
+  .btn-ghost:active {
+    box-shadow: var(--neu-pressed);
   }
 
   /* ── Language pill ──────────────────────────────────────── */
   .lang-pill {
-    @apply flex items-center gap-0.5 rounded-full border border-line bg-tile p-0.5;
+    @apply flex items-center gap-0.5 rounded-full p-0.5;
+    background: var(--surface);
+    box-shadow: var(--neu-inset);
   }
   .lang-pill > span {
-    @apply rounded-full px-2.5 py-1 text-[11px] font-semibold text-muted transition-colors duration-300;
+    @apply rounded-full px-2.5 py-1 text-[11px] font-semibold text-muted transition-all duration-300;
   }
   .lang-pill > span.is-active {
-    @apply bg-primary/25 text-copy;
-  }
-
-  /* ── Background grid ────────────────────────────────────── */
-  .bg-grid {
-    background-image:
-      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
-      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
-    background-size: 72px 72px;
-    mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 35%, transparent 100%);
-    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 0%, black 35%, transparent 100%);
+    @apply text-copy;
+    background: var(--surface);
+    box-shadow: var(--neu-raised-sm);
   }
 
   /* ── Orb vignette (theme aware) ─────────────────────────── */
@@ -364,20 +391,16 @@ body::after {
     background: radial-gradient(ellipse at center, transparent 45%, var(--ink) 100%);
   }
 
-  /* ── Card hover elevation ───────────────────────────────── */
+  /* ── Card hover: the extrusion deepens instead of glowing ── */
   .card-glow {
     transition:
       transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-      border-color 0.45s ease,
       box-shadow 0.45s ease,
       background-color 0.45s ease;
   }
   .card-glow:hover {
-    transform: translateY(-6px);
-    border-color: rgb(37 99 235 / 0.5);
-    box-shadow:
-      0 24px 60px -24px rgb(37 99 235 / 0.4),
-      0 0 0 1px rgb(37 99 235 / 0.14);
+    transform: translateY(-4px);
+    box-shadow: var(--neu-raised-lg);
   }
 }
 

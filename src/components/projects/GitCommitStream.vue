@@ -2,23 +2,19 @@
   <div class="git-stream">
     <!-- Toolbar -->
     <div
-      class="mb-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 rounded-[22px] border border-line/60 bg-tile-2 px-5 py-4"
+      class="neu-inset mb-12 flex flex-wrap items-center justify-between gap-x-6 gap-y-3 rounded-[22px] px-5 py-4"
     >
       <div class="flex items-center gap-2.5 font-mono text-[11.5px] text-muted">
         <GitBranch class="h-4 w-4 text-primary-soft" />
         <span class="text-copy/90">$ {{ t.projects.stream.gitLog }}</span>
       </div>
-      <div class="flex items-center gap-1 rounded-full border border-line bg-tile p-1">
+      <div class="neu-inset flex items-center gap-1 rounded-full p-1">
         <button
           v-for="f in filterOptions"
           :key="f.key"
           type="button"
           class="flex items-center gap-1.5 rounded-full px-3.5 py-1.5 font-mono text-[10.5px] font-semibold tracking-[0.14em] transition-all duration-300 uppercase"
-          :class="
-            filter === f.key
-              ? 'bg-primary/20 text-copy shadow-[0_0_0_1px_var(--line)]'
-              : 'text-muted-2 hover:text-copy'
-          "
+          :class="filter === f.key ? 'neu-raised-sm text-copy' : 'text-muted-2 hover:text-copy'"
           :aria-pressed="filter === f.key"
           @click="filter = f.key"
         >
@@ -41,7 +37,7 @@
           <!-- Year marker on the line -->
           <li v-if="item.kind === 'year'" class="relative h-10">
             <span
-              class="absolute top-1/2 left-6 inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full border border-line bg-ink px-3.5 py-1 font-mono text-[11px] font-semibold tracking-[0.2em] text-copy/90 shadow-[0_0_0_1px_var(--line)] md:left-1/2"
+              class="neu-raised-sm absolute top-1/2 left-6 inline-flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full px-3.5 py-1 font-mono text-[11px] font-semibold tracking-[0.2em] text-copy/90 md:left-1/2"
             >
               <span class="h-1.5 w-1.5 rounded-full bg-ok" />
               {{ item.year }}
@@ -95,7 +91,7 @@
                 </span>
                 <span
                   v-if="item.head"
-                  class="rounded-full border border-success/40 bg-success/15 px-2.5 py-0.5 font-mono text-[9.5px] font-semibold tracking-[0.14em] text-success uppercase"
+                  class="neu-raised-sm rounded-full px-2.5 py-0.5 font-mono text-[9.5px] font-semibold tracking-[0.14em] text-success uppercase"
                 >
                   {{ t.projects.stream.head }}
                 </span>
@@ -144,8 +140,8 @@ const { t, locale } = useLang()
 defineEmits<{ select: [project: Project] }>()
 
 const BRANCH = {
-  web: { color: 'var(--branch-web)', chip: 'border-primary/40 bg-primary/15 text-primary-soft' },
-  mobile: { color: 'var(--branch-mobile)', chip: 'border-accent/40 bg-accent/15 text-accent' },
+  web: { color: 'var(--branch-web)', chip: 'neu-inset text-primary-soft' },
+  mobile: { color: 'var(--branch-mobile)', chip: 'neu-inset text-accent' },
 } as const
 
 type Branch = keyof typeof BRANCH

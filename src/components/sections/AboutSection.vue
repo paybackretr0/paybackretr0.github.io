@@ -31,7 +31,7 @@
             <span
               v-for="skill in t.about.strengthsList"
               :key="skill"
-              class="rounded-full border border-line bg-tile px-3.5 py-1.5 text-[13px] font-medium text-copy/85 transition-all duration-300 hover:border-accent/40 hover:bg-accent/10 hover:text-accent"
+              class="neu-inset rounded-full px-3.5 py-1.5 text-[13px] font-medium text-copy/85 transition-all duration-300 hover:text-accent"
             >
               {{ skill }}
             </span>
@@ -43,10 +43,9 @@
           v-reveal="{ delay: 420 }"
           class="glass card-glow relative mt-10 overflow-hidden rounded-[22px] p-6 sm:p-7"
         >
-          <span class="absolute inset-x-0 top-0 h-px bg-primary/50" />
           <div class="flex items-start gap-5">
             <span
-              class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-line bg-primary/10"
+              class="neu-raised-sm flex h-12 w-12 shrink-0 items-center justify-center rounded-xl"
             >
               <Sparkles class="h-5 w-5 text-accent" />
             </span>
@@ -72,8 +71,6 @@
           v-reveal="{ delay: 160 }"
           class="glass card-glow relative overflow-hidden rounded-[22px] p-8"
         >
-          <span class="absolute inset-x-0 top-0 h-px bg-accent/50" />
-
           <p class="font-mono text-[11px] tracking-[0.24em] text-muted-2 uppercase">
             {{ t.about.factsLabel }}
           </p>
@@ -81,7 +78,7 @@
           <dl class="mt-6 space-y-6">
             <div v-for="fact in facts" :key="fact.label" class="flex items-start gap-4">
               <span
-                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-tile"
+                class="neu-raised-sm flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
               >
                 <component :is="fact.icon" class="h-4.5 w-4.5 text-primary-soft" />
               </span>
@@ -99,7 +96,7 @@
             <span class="relative flex h-10 w-10 items-center justify-center">
               <span class="absolute inset-0 animate-ping rounded-full bg-accent/20" />
               <span
-                class="relative flex h-8 w-8 items-center justify-center rounded-full border border-accent/40 bg-accent/10"
+                class="neu-raised-sm relative flex h-8 w-8 items-center justify-center rounded-full"
               >
                 <Terminal class="h-4 w-4 text-accent" />
               </span>

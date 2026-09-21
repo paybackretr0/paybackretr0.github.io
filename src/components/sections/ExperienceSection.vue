@@ -33,7 +33,7 @@
             >
               <!-- Node dot -->
               <span
-                class="absolute top-2 left-0 h-[11px] w-[11px] -translate-x-1/2 rounded-full border-2 border-accent bg-ink shadow-[0_0_14px_rgba(34,211,238,0.65)]"
+                class="absolute top-2 left-0 h-[11px] w-[11px] -translate-x-1/2 rounded-full bg-accent shadow-[var(--neu-raised-sm)]"
               />
 
               <div class="glass card-glow rounded-[22px] p-6 sm:p-7">

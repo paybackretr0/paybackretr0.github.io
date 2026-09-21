@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://khalied.maturino.my.id/sitemap.xml
+Sitemap: https://khalied.maturino.id/sitemap.xml

@@ -80,8 +80,7 @@ const typeStyles: Record<AchievementType, string> = {
 const spans: Record<string, string> = {
   bangkit: 'sm:col-span-2 lg:col-span-4',
   'impact-hackathon': 'lg:col-span-2',
-  'cybertech-hackathon': 'lg:col-span-2',
-  'neo-telemetri': 'sm:col-span-2 lg:col-span-2',
-  'gold-medal-dampak': 'lg:col-span-2',
+  'cybertech-hackathon': 'lg:col-span-3',
+  'gold-medal-dampak': 'sm:col-span-2 lg:col-span-3',
 }
 </script>

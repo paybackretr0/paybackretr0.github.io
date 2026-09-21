@@ -39,6 +39,188 @@ export interface Project {
 
 export const projects: Project[] = [
   {
+    id: 'sipandam',
+    title: {
+      en: 'SIPANDAM UNAND — TPBU Funeral Savings Information System',
+      id: 'SIPANDAM UNAND — Sistem Informasi Pandam TPBU',
+    },
+    role: 'Full-Stack Developer',
+    category: 'Web · Information System',
+    year: 'Sep – Oct 2026',
+    desc: {
+      en: 'Web-based system digitalizing every Tabungan Pemakaman Bersama (TPBU) funeral savings service at Universitas Andalas — from membership registration for university community members, maintenance fee and finance management, to funeral arrangements, grave site allocation and reporting.',
+      id: 'Sistem berbasis web yang mendigitalisasi seluruh layanan Tabungan Pemakaman Bersama (TPBU) Universitas Andalas — mulai dari pendaftaran keanggotaan civitas akademika, pengelolaan iuran pemeliharaan dan keuangan, hingga pengaturan pemakaman, alokasi lokasi makam, dan pelaporan.',
+    },
+    features: {
+      en: [
+        'Online registration wizard & document upload',
+        'Tiered admin verification (member, then dependents)',
+        'Automatic membership number & PDF member card',
+        'Multi-identity login (NIK/NIP/NIDN/NUPTK/NIDK)',
+        'Maintenance fees, payments & cashbook',
+        'Grave block & site allocation',
+        'Legacy data import (Excel/CSV)',
+      ],
+      id: [
+        'Wizard pendaftaran daring & unggah dokumen',
+        'Verifikasi admin bertingkat (anggota, lalu tanggungan)',
+        'Nomor anggota otomatis & kartu anggota PDF',
+        'Login multi-identitas (NIK/NIP/NIDN/NUPTK/NIDK)',
+        'Iuran pemeliharaan, pembayaran & kas',
+        'Blok & alokasi lokasi makam',
+        'Impor data lama (Excel/CSV)',
+      ],
+    },
+    stack: ['PHP', 'Laravel', 'Inertia.js', 'React.js', 'TypeScript', 'Tailwind CSS', 'MySQL'],
+    architecture: [
+      { layer: 'Web Client', tech: 'React.js · TypeScript · Inertia.js · Tailwind CSS' },
+      { layer: 'Controller Layer', tech: 'Laravel (MVC)' },
+      { layer: 'Service Layer', tech: 'Registration · Verification · Finance' },
+      { layer: 'Database', tech: 'MySQL · Eloquent ORM' },
+    ],
+    schema: [
+      {
+        table: 'members',
+        columns: [
+          { name: 'id', type: 'INT', key: 'PK' },
+          { name: 'member_number', type: 'VARCHAR(30)', key: 'UQ' },
+          { name: 'full_name', type: 'VARCHAR(120)' },
+          { name: 'identity_type', type: 'ENUM(nik, nip, nidn, nuptk, nidk)' },
+          { name: 'identity_number', type: 'VARCHAR(30)', key: 'UQ' },
+          { name: 'status', type: 'ENUM(pending, verified, active)' },
+        ],
+      },
+      {
+        table: 'dependents',
+        columns: [
+          { name: 'id', type: 'INT', key: 'PK' },
+          { name: 'member_id', type: 'INT', key: 'FK' },
+          { name: 'name', type: 'VARCHAR(120)' },
+          { name: 'relation', type: 'VARCHAR(40)' },
+          { name: 'identity_number', type: 'VARCHAR(30)' },
+          { name: 'status', type: 'ENUM(pending, verified)' },
+        ],
+      },
+      {
+        table: 'payments',
+        columns: [
+          { name: 'id', type: 'INT', key: 'PK' },
+          { name: 'member_id', type: 'INT', key: 'FK' },
+          { name: 'type', type: 'ENUM(registration, maintenance)' },
+          { name: 'amount', type: 'DECIMAL(12,2)' },
+          { name: 'proof_path', type: 'VARCHAR(255)' },
+          { name: 'status', type: 'ENUM(pending, verified, rejected)' },
+        ],
+      },
+      {
+        table: 'grave_sites',
+        columns: [
+          { name: 'id', type: 'INT', key: 'PK' },
+          { name: 'block', type: 'VARCHAR(20)' },
+          { name: 'number', type: 'VARCHAR(20)' },
+          { name: 'status', type: 'ENUM(available, reserved, occupied)' },
+        ],
+      },
+    ],
+    theme: ['#881337', '#fb7185'],
+    github: 'https://github.com/paybackretr0',
+    demo: '',
+  },
+  {
+    id: 'myunand-obe',
+    title: {
+      en: 'MyUNAND Academic Curriculum Web — UNAND',
+      id: 'MyUNAND Academic Curriculum Web Universitas Andalas',
+    },
+    role: 'Full-Stack Developer',
+    category: 'Web · Academic System',
+    year: 'Sep 2026',
+    desc: {
+      en: 'Web-based system digitalizing the Outcome-Based Education (OBE) curriculum process at Universitas Andalas — from curriculum design (CP–CPMK), course offering and cross-major KRS enrollment, to grade assessment and learning outcome reporting.',
+      id: 'Sistem berbasis web yang mendigitalisasi proses kurikulum akademik berbasis Outcome-Based Education (OBE) di Universitas Andalas — mulai dari perancangan kurikulum (CP–CPMK), penawaran mata kuliah, pengisian KRS lintas prodi, hingga penilaian dan pelaporan capaian pembelajaran.',
+    },
+    features: {
+      en: [
+        'OBE curriculum management (CP / CPMK / Sub-CPMK)',
+        'Course offering & class scheduling',
+        'KRS & cross-major enrollment with advisor verification',
+        'Grade assessment & learning outcome reporting',
+        'CP recap dashboards & monitoring',
+      ],
+      id: [
+        'Manajemen kurikulum OBE (CP / CPMK / Sub-CPMK)',
+        'Penawaran mata kuliah & penjadwalan kelas',
+        'KRS & pendaftaran lintas prodi dengan verifikasi dosen PA',
+        'Penilaian & pelaporan capaian pembelajaran',
+        'Dashboard rekap CP & pemantauan',
+      ],
+    },
+    stack: ['React.js', 'Node.js', 'Express.js', 'MySQL'],
+    architecture: [
+      { layer: 'Web Client', tech: 'React.js' },
+      { layer: 'REST API', tech: 'Node.js · Express.js' },
+      { layer: 'Service Layer', tech: 'Curriculum · Enrollment · Assessment' },
+      { layer: 'Database', tech: 'MySQL (50+ tables)' },
+    ],
+    schema: [
+      {
+        table: 'curriculums',
+        columns: [
+          { name: 'id', type: 'INT', key: 'PK' },
+          { name: 'study_program_id', type: 'INT', key: 'FK' },
+          { name: 'code', type: 'VARCHAR(20)' },
+          { name: 'name', type: 'VARCHAR(160)' },
+          { name: 'year', type: 'SMALLINT' },
+          { name: 'status', type: 'ENUM(draft, active, archived)' },
+        ],
+      },
+      {
+        table: 'learning_outcomes',
+        columns: [
+          { name: 'id', type: 'INT', key: 'PK' },
+          { name: 'curriculum_id', type: 'INT', key: 'FK' },
+          { name: 'parent_id', type: 'INT', key: 'FK' },
+          { name: 'type', type: 'ENUM(cp, cpmk, sub_cpmk)' },
+          { name: 'code', type: 'VARCHAR(20)' },
+          { name: 'statement', type: 'TEXT' },
+        ],
+      },
+      {
+        table: 'courses',
+        columns: [
+          { name: 'id', type: 'INT', key: 'PK' },
+          { name: 'curriculum_id', type: 'INT', key: 'FK' },
+          { name: 'code', type: 'VARCHAR(20)', key: 'UQ' },
+          { name: 'name', type: 'VARCHAR(160)' },
+          { name: 'credits', type: 'TINYINT' },
+          { name: 'semester', type: 'TINYINT' },
+        ],
+      },
+      {
+        table: 'classes',
+        columns: [
+          { name: 'id', type: 'INT', key: 'PK' },
+          { name: 'course_id', type: 'INT', key: 'FK' },
+          { name: 'lecturer_id', type: 'INT', key: 'FK' },
+          { name: 'academic_term', type: 'VARCHAR(20)' },
+          { name: 'capacity', type: 'SMALLINT' },
+        ],
+      },
+      {
+        table: 'krs_entries',
+        columns: [
+          { name: 'id', type: 'INT', key: 'PK' },
+          { name: 'student_id', type: 'INT', key: 'FK' },
+          { name: 'class_id', type: 'INT', key: 'FK' },
+          { name: 'status', type: 'ENUM(draft, submitted, verified, rejected)' },
+        ],
+      },
+    ],
+    theme: ['#3730a3', '#a5b4fc'],
+    github: 'https://github.com/paybackretr0',
+    demo: '',
+  },
+  {
     id: 'bss',
     title: {
       en: 'Student Temporary Leave (BSS) Management System — UNAND',

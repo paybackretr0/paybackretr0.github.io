@@ -50,20 +50,6 @@ export const achievements: Achievement[] = [
     },
   },
   {
-    id: 'neo-telemetri',
-    type: 'award',
-    year: '2024 — 2025',
-    title: {
-      en: 'Leadership — UKM Neo Telemetri UNAND',
-      id: 'Kepemimpinan — UKM Neo Telemetri UNAND',
-    },
-    org: { en: 'Neo Telemetri', id: 'Neo Telemetri' },
-    desc: {
-      en: 'Coordinator of the Organizing Committee, PIC of the national Firetech 2025 Hackathon, and Event Coordinator of Open Recruitment 14.',
-      id: 'Koordinator Divisi Organizing Committee, PIC Hackathon Firetech 2025 (kompetisi nasional), dan Koordinator Divisi Acara Open Recruitment 14.',
-    },
-  },
-  {
     id: 'gold-medal-dampak',
     type: 'award',
     year: '2026',

@@ -195,32 +195,21 @@ type TimelineItem = TimelineYear | TimelineCommit
    commit's starting year changes, giving the "branches per year" feel.
    The whole timeline is a computed so the web/mobile filter can re-build
    it (year markers only appear when a year has commits on this branch). */
-const ORDER = [
-  'bss',
-  'scholarship',
-  'pkm',
-  'telemetri-admin',
-  'aceed-expo',
-  'telemetri',
-  'excamotion',
-  'whistleblowing',
-  'dpmptsp-profile',
-  'dpmptsp-visitor',
-  'simsapras',
-  'bersama-rakyat',
-  'agrowista',
-]
+/** A year may be plain ("2026") or a period ("2025 – 2026", "Sep 2026"). */
+const yearOf = (value: string): number => Number(value.match(/\d{4}/)?.[0] ?? 0)
+
+/** HEAD stays on the newest commit overall. */
+const HEAD_ID = projects[0]?.id
 
 const timeline = computed<TimelineItem[]>(() => {
   const items: TimelineItem[] = []
   let lastYear: number | null = null
   let commitIndex = 0
-  for (const id of ORDER) {
-    // ORDER only contains known project ids
-    const project = projects.find((p) => p.id === id) as Project
+  // Projects are listed newest first in the data file — that is the timeline order.
+  for (const project of projects) {
     const branch = branchOf(project)
     if (filter.value !== 'all' && branch !== filter.value) continue
-    const year = parseInt(project.year, 10)
+    const year = yearOf(project.year)
     if (year !== lastYear) {
       items.push({ kind: 'year', key: `year-${year}-${filter.value}`, year })
       lastYear = year
@@ -230,8 +219,8 @@ const timeline = computed<TimelineItem[]>(() => {
       key: project.id,
       project,
       side: commitIndex % 2 === 0 ? 'left' : 'right',
-      // HEAD stays on the newest commit overall (ORDER[0]) regardless of filter.
-      head: project.id === ORDER[0],
+      // HEAD stays on the newest commit overall regardless of filter.
+      head: project.id === HEAD_ID,
       branch,
       hash: hashOf(project.id),
       delay: commitIndex,

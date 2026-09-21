@@ -14,7 +14,7 @@ const SECTIONS = [
     title: 'EDUCATION',
     lines: [
       'S1 Information Systems - Universitas Andalas',
-      'GPA 3.76 / 4.00 - Expected graduation: September 2026',
+      'GPA 3.77 / 4.00 - Expected graduation: September 2026',
     ],
   },
   {
@@ -72,7 +72,8 @@ let stream = ''
 stream += '0.13 0.39 0.92 rg\n'
 stream += 'BT /F2 22 Tf 56 748 Td (KHALIED NAULY MATURINO) Tj ET\n'
 stream += '0.13 0.39 0.92 rg\nBT /F2 12 Tf 56 730 Td (Software Developer - Mobile & Web) Tj ET\n'
-stream += '0.58 0.64 0.72 rg\nBT /F1 9 Tf 56 716 Td (Padang, Indonesia  |  khalidmaturino@gmail.com  |  github.com/paybackretr0) Tj ET\n'
+stream +=
+  '0.58 0.64 0.72 rg\nBT /F1 9 Tf 56 716 Td (Padang, Indonesia  |  khalidmaturino@gmail.com  |  github.com/paybackretr0) Tj ET\n'
 
 let y = 700
 for (const section of SECTIONS) {

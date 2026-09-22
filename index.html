@@ -5,7 +5,10 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#262b33" />
-    <link rel="canonical" href="https://khalied.maturino.id/" />
+    <link rel="canonical" href="https://khalied.maturino.id/en/" />
+    <link rel="alternate" hreflang="en" href="https://khalied.maturino.id/en/" />
+    <link rel="alternate" hreflang="id" href="https://khalied.maturino.id/id/" />
+    <link rel="alternate" hreflang="x-default" href="https://khalied.maturino.id/en/" />
     <meta name="google-site-verification" content="cVHVTQCcSqPVo04wfkNZqhKenup-A2ZjsBQrdNPU6kI" />
     <script>
       // Apply the saved theme before first paint to avoid a flash of the
@@ -21,7 +24,10 @@
       content="Khalied Nauly Maturino — Software Developer building Android apps (Kotlin, Jetpack Compose, Flutter) and web information systems (Laravel, React.js, Node.js)."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://khalied.maturino.id/" />
+    <meta property="og:site_name" content="Khalied Nauly Maturino" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="id_ID" />
+    <meta property="og:url" content="https://khalied.maturino.id/en/" />
     <meta property="og:title" content="Khalied Nauly Maturino — Software Developer" />
     <meta
       property="og:description"
@@ -30,7 +36,7 @@
     <meta property="og:image" content="https://khalied.maturino.id/og-image-2.png" />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://khalied.maturino.id/" />
+    <meta property="twitter:url" content="https://khalied.maturino.id/en/" />
     <meta name="twitter:title" content="Khalied Nauly Maturino — Software Developer" />
     <meta
       name="twitter:description"
@@ -51,47 +57,67 @@
     />
 
     <!-- Structured data for Google: name, role, current work, education and
-         the same profiles that are linked in the footer. -->
+         the same profiles that are linked in the footer. These are the entities
+         shared by every URL; the page-level nodes (ProfilePage, the project
+         list) are written per language by applySeoHead. -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Person",
-        "@id": "https://khalied.maturino.id/#person",
-        "name": "Khalied Nauly Maturino",
-        "alternateName": "Khalied Nauly",
-        "url": "https://khalied.maturino.id/",
-        "image": "https://khalied.maturino.id/og-image-2.png",
-        "jobTitle": "Software Developer",
-        "description": "Software Developer focused on mobile and web development — Android applications with Kotlin and Jetpack Compose, and web information systems with Laravel, React.js and Node.js.",
-        "email": "mailto:khalidmaturino@gmail.com",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Padang",
-          "addressCountry": "ID"
-        },
-        "worksFor": {
-          "@type": "Organization",
-          "name": "PT Persero Batam"
-        },
-        "alumniOf": {
-          "@type": "CollegeOrUniversity",
-          "name": "Universitas Andalas"
-        },
-        "knowsAbout": [
-          "Android development",
-          "Kotlin",
-          "Jetpack Compose",
-          "Flutter",
-          "Laravel",
-          "React.js",
-          "Node.js",
-          "REST API",
-          "MySQL"
-        ],
-        "sameAs": [
-          "https://github.com/paybackretr0",
-          "https://www.linkedin.com/in/khaliedmtrn",
-          "https://www.instagram.com/khaliedmtrn"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://khalied.maturino.id/#website",
+            "url": "https://khalied.maturino.id/",
+            "name": "Khalied Nauly Maturino",
+            "alternateName": "Khalied Nauly — Software Developer",
+            "inLanguage": ["en", "id"],
+            "publisher": { "@id": "https://khalied.maturino.id/#person" }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://khalied.maturino.id/#person",
+            "name": "Khalied Nauly Maturino",
+            "alternateName": "Khalied Nauly",
+            "url": "https://khalied.maturino.id/",
+            "image": "https://khalied.maturino.id/og-image-2.png",
+            "jobTitle": "Software Developer",
+            "description": "Software Developer focused on mobile and web development — Android applications with Kotlin and Jetpack Compose, and web information systems with Laravel, React.js and Node.js.",
+            "email": "mailto:khalidmaturino@gmail.com",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Padang",
+              "addressCountry": "ID"
+            },
+            "worksFor": {
+              "@type": "Organization",
+              "name": "PT Persero Batam"
+            },
+            "alumniOf": {
+              "@type": "OrganizationRole",
+              "alumniOf": {
+                "@type": "CollegeOrUniversity",
+                "name": "Universitas Andalas"
+              },
+              "startDate": "2022",
+              "endDate": "2026-07"
+            },
+            "knowsAbout": [
+              "Android development",
+              "Kotlin",
+              "Jetpack Compose",
+              "Flutter",
+              "Laravel",
+              "React.js",
+              "Node.js",
+              "REST API",
+              "MySQL"
+            ],
+            "sameAs": [
+              "https://github.com/paybackretr0",
+              "https://www.linkedin.com/in/khaliedmtrn",
+              "https://www.instagram.com/khaliedmtrn"
+            ]
+          }
         ]
       }
     </script>

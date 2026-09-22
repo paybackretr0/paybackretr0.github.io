@@ -1,8 +1,60 @@
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
 
-export type Lang = 'en' | 'id'
+import { defaultLang, langFromPath, languages, otherLang, type SiteLang } from '@/data/seo'
 
-const locale = ref<Lang>('en')
+export type Lang = SiteLang
+
+const STORAGE_KEY = 'lang'
+
+/**
+ * Resolve the initial language. The URL wins over the saved preference: a
+ * shared /id/ link has to open in Indonesian even on a device that saw English
+ * last, and each prerendered page holds exactly one language's copy.
+ */
+function resolveInitial(): Lang {
+  const fromPath = typeof location !== 'undefined' ? langFromPath(location.pathname) : null
+  if (fromPath) return fromPath
+
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY)
+    if (saved === 'en' || saved === 'id') return saved
+  } catch {
+    /* private mode / unavailable storage */
+  }
+  return defaultLang
+}
+
+/** Active language. Module-level state, shared by every component. */
+export const locale = ref<Lang>(resolveInitial())
+
+/**
+ * Mirror the language onto <html lang> — screen readers and search engines
+ * take pronunciation and language targeting from it, and the static index.html
+ * can only ever declare one of the two languages.
+ */
+function apply(l: Lang) {
+  if (typeof document !== 'undefined') document.documentElement.lang = l
+}
+
+/**
+ * Activate a language, remember it for the next visit to `/` and keep
+ * <html lang> in step. The router owns the language through the URL and calls
+ * this on every navigation.
+ */
+export function setLocale(l: Lang) {
+  locale.value = l
+  apply(l)
+  try {
+    localStorage.setItem(STORAGE_KEY, l)
+  } catch {
+    /* ignore */
+  }
+}
+
+// Applied on first import (App mounts) so the attribute matches the URL before
+// the first paint, not only after a toggle.
+apply(locale.value)
 
 const translations = {
   en: {
@@ -255,8 +307,17 @@ const translations = {
 }
 
 export function useLang() {
+  const router = useRouter()
+
+  /**
+   * Switch languages. Each language lives at its own URL, so the toggle
+   * navigates instead of only swapping state — the router applies the language
+   * and its head tags, and the address bar stays shareable.
+   */
   const toggleLang = () => {
-    locale.value = locale.value === 'en' ? 'id' : 'en'
+    const next = otherLang(locale.value)
+    setLocale(next)
+    void router.push(languages[next].path)
   }
 
   const t = computed(() => translations[locale.value])

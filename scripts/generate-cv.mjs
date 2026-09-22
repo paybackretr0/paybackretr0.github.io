@@ -14,7 +14,7 @@ const SECTIONS = [
     title: 'EDUCATION',
     lines: [
       'S1 Information Systems - Universitas Andalas',
-      'GPA 3.77 / 4.00 - Expected graduation: September 2026',
+      'GPA 3.77 / 4.00 - Graduated: 23 July 2026 (ceremony: 18 September 2026)',
     ],
   },
   {

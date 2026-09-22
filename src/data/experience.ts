@@ -189,8 +189,8 @@ export const experience: ExperienceEntry[] = [
     role: { en: 'S1 Information Systems', id: 'S1 Sistem Informasi' },
     org: { en: 'Universitas Andalas', id: 'Universitas Andalas' },
     desc: {
-      en: 'Information Systems undergraduate with a GPA of 3.77 / 4.00, expected to graduate in September 2026.',
-      id: 'Mahasiswa S1 Sistem Informasi dengan IPK 3.77 / 4.00, ekspektasi lulus September 2026.',
+      en: 'Graduate of the Information Systems undergraduate programme with a GPA of 3.77 / 4.00 — graduated on 23 July 2026, with the graduation ceremony on 18 September 2026.',
+      id: 'Lulusan S1 Sistem Informasi dengan IPK 3.77 / 4.00 — lulus 23 Juli 2026 dan diwisuda 18 September 2026.',
     },
   },
 ]

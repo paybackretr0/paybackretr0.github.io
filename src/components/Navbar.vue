@@ -1,9 +1,10 @@
 <template>
   <header
     class="fixed inset-x-0 top-0 z-50 transition-all duration-500"
-    :class="
-      scrolled ? 'bg-[var(--nav-bg)] py-2.5 shadow-[var(--nav-shadow)]' : 'bg-transparent py-4'
-    "
+    :class="[
+      scrolled ? 'nav-glass py-2.5' : 'border-b border-transparent bg-transparent py-4',
+      hidden ? '-translate-y-full' : 'translate-y-0',
+    ]"
   >
     <!-- pt-[env(...)] only adds space on notched iPhones (0 elsewhere),
          keeping the logo row clear of the status bar with viewport-fit=cover. -->
@@ -85,10 +86,7 @@
       leave-from-class="translate-y-0 opacity-100"
       leave-to-class="-translate-y-2 opacity-0"
     >
-      <div
-        v-if="open"
-        class="bg-[var(--nav-bg)] px-5 pt-4 pb-6 shadow-[var(--nav-shadow)] md:hidden"
-      >
+      <div v-if="open" class="nav-panel px-5 pt-4 pb-6 md:hidden">
         <ul class="space-y-1">
           <li v-for="link in links" :key="link.id">
             <a
@@ -133,6 +131,7 @@ const { t, locale, toggleLang, cvFile, portfolioFile } = useLang()
 const { theme, toggleTheme } = useTheme()
 const open = ref(false)
 const scrolled = ref(false)
+const hidden = ref(false)
 
 const links = [
   { id: 'about', key: 'about' },
@@ -162,8 +161,19 @@ function onMobileNav(id: string) {
   scrollTo(`#${id}`)
 }
 
+let lastY = 0
+
 function onScroll() {
-  scrolled.value = window.scrollY > 16
+  const y = window.scrollY
+  scrolled.value = y > 16
+
+  // Hide while reading downwards, come back on the way up — and never hide
+  // near the top, where the toggle would look like a glitch. The 4px slack
+  // keeps trackpad jitter from flickering the bar.
+  if (y > 520 && y > lastY + 4) hidden.value = true
+  else if (y < lastY - 4 || y < 220) hidden.value = false
+
+  lastY = y
 }
 
 onMounted(() => {

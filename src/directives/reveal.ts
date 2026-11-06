@@ -6,6 +6,8 @@ export interface RevealOptions {
   delay?: number
   /** Vertical offset in px, or 'grow' for scaleY reveal (timeline lines). */
   y?: number | 'grow'
+  /** Blur radius in px the element resolves from (0 disables). */
+  blur?: number
 }
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1]
@@ -20,19 +22,38 @@ let scrollRaf = 0
 function revealElement(el: HTMLElement) {
   const grow = el.dataset.revealGrow === '1'
   const delay = Number(el.dataset.revealDelay ?? 0)
+  const blur = Number(el.dataset.revealBlur ?? 0)
 
   // Delay is applied outside of `animate` — motion-v's own delay option
   // proved unreliable here (staggered elements never animated).
-  const start = () =>
-    animate(el, grow ? { scaleY: [0, 1] } : { opacity: [0, 1], y: [24, 0] }, {
-      duration: grow ? 0.7 : 0.5,
-      ease: EASE,
-      onComplete: () => {
-        // Clear inline styles so CSS (hover, keyframe animations) works normally.
-        el.style.opacity = ''
-        el.style.transform = ''
-      },
-    })
+  const start = () => {
+    if (grow) {
+      animate(el, { scaleY: [0, 1] }, { duration: 0.8, ease: EASE, onComplete: clearInline })
+      return
+    }
+
+    // A touch of blur makes the rise feel like focus being pulled in rather
+    // than a plain slide. Kept small so it never reads as a loading state.
+    const options = { duration: 0.7, ease: EASE, onComplete: clearInline }
+
+    if (blur > 0) {
+      animate(
+        el,
+        { opacity: [0, 1], y: [28, 0], filter: [`blur(${blur}px)`, 'blur(0px)'] },
+        options,
+      )
+      return
+    }
+
+    animate(el, { opacity: [0, 1], y: [28, 0] }, options)
+  }
+
+  function clearInline() {
+    // Clear inline styles so CSS (hover, keyframe animations) works normally.
+    el.style.opacity = ''
+    el.style.transform = ''
+    el.style.filter = ''
+  }
 
   if (delay > 0) staggerTimers.set(el, window.setTimeout(start, delay))
   else start()
@@ -72,15 +93,17 @@ export const vReveal: Directive<HTMLElement, RevealOptions> = {
   mounted(el, binding) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const { delay = 0, y = 24 } = binding.value ?? {}
+    const { delay = 0, y = 28, blur = 6 } = binding.value ?? {}
     const grow = y === 'grow'
 
     el.dataset.revealGrow = grow ? '1' : '0'
     el.dataset.revealDelay = String(delay)
+    el.dataset.revealBlur = String(grow ? 0 : blur)
 
     el.style.opacity = '0'
     el.style.transform = grow ? 'scaleY(0)' : `translateY(${y}px)`
     if (grow) el.style.transformOrigin = 'top'
+    if (!grow && blur > 0) el.style.filter = `blur(${blur}px)`
 
     const rect = el.getBoundingClientRect()
     const alreadyInView = rect.top < window.innerHeight && rect.bottom > 0

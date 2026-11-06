@@ -45,10 +45,10 @@ npm run build
 
 The hero buttons and the mobile menu download the PDFs in `public/`:
 
-| File in `public/` | Shown on | Label |
-| --- | --- | --- |
-| `CV-Khalied-EN-SD.pdf` | `/en/` | Resume |
-| `CV-Khalied-ID-SD.pdf` | `/id/` | CV |
+| File in `public/`       | Shown on       | Label                  |
+| ----------------------- | -------------- | ---------------------- |
+| `CV-Khalied-EN-SD.pdf`  | `/en/`         | Resume                 |
+| `CV-Khalied-ID-SD.pdf`  | `/id/`         | CV                     |
 | `Khalied-Portfolio.pdf` | both languages | Portfolio / Portofolio |
 
 The mapping lives in [`src/data/docs.ts`](src/data/docs.ts) and every URL is
@@ -58,6 +58,48 @@ the site is prerendered per language: a relative `./cv.pdf` was resolved against
 the language folder (`/en/cv.pdf`), which returned 404 on GitHub Pages even
 though it appeared to work in development. To swap a PDF, replace the file in
 `public/` and keep the name — or update the name in `src/data/docs.ts`.
+
+## Design system — Aurora Glass
+
+The UI is built from one visual language, all of it defined in
+[`src/style.css`](src/style.css):
+
+- **Tokens** — `--ink` / `--surface` / `--glass` / `--glass-border`, the brand
+  gradient (`--primary` → `--violet` → `--cyan`), motion easings (`--ease-out-expo`)
+  and the aurora washes (`--aurora-1..3`). The light theme overrides the same
+  names under `[data-theme='light']`, so a single attribute re-themes everything.
+- **Surfaces** — `.glass`, `.glass-strong`, `.nav-glass`, `.nav-panel` and the
+  legacy `.neu-*` names, kept as aliases so older markup keeps rendering.
+- **Effects** — `.aurora-blob` + `.grain-layer` (background, in
+  `AuroraBackground.vue`), `.spotlight-card` (cursor glow, driven by `v-spotlight`),
+  `.tilt-target` (3D tilt, driven by `v-tilt`), `.marquee-track` (`Marquee.vue`).
+- **Motion** — `v-reveal` (fade/rise/blur on scroll), `MaskedLines.vue` (masked
+  line reveal with GSAP), `.scroll-rise` / `.scroll-grow` (CSS scroll-driven
+  animations where supported), `useMagnetic` (magnetic buttons) and the page /
+  language View Transitions.
+
+### 3D hero
+
+`components/three/HeroScene.vue` mounts the WebGL object in
+`components/three/heroScene.three.ts`. `three` is imported dynamically, so it
+ships as its own lazy chunk and only loads once the hero is on screen. The scene
+skips itself for `prefers-reduced-motion`, touch/low-memory devices get fewer
+particles and a lower pixel ratio, a frame-time governor degrades it further if
+needed, and a CSS fallback (`.hero-fallback`) covers everything else — including
+the prerenderer, which always runs with reduced motion.
+
+## Visual QA screenshots
+
+```sh
+npm run build            # produces dist/ and the prerendered /en/ + /id/ pages
+npm run shots -- --label before
+npm run shots -- --label after
+```
+
+Output lands in `.screenshots/<label>/` (git-ignored): every language × theme ×
+viewport combination, captured with reduced motion so a frame never depends on
+where an animation happened to be. Requires Google Chrome, like the prerenderer
+(`CHROME_PATH` overrides the binary).
 
 ## Deploy to GitHub Pages
 
@@ -83,8 +125,8 @@ to `main`** via [GitHub Actions](.github/workflows/deploy.yml).
    gh repo create paybackretr0.github.io --public --source . --remote origin --push
    ```
 
-3. Open the repository on GitHub → **Settings → Pages** → under *Build and
-   deployment* set **Source** to **GitHub Actions**.
+3. Open the repository on GitHub → **Settings → Pages** → under _Build and
+   deployment_ set **Source** to **GitHub Actions**.
 4. The first deploy runs automatically from the push. When it finishes, the
    site is live at `https://paybackretr0.github.io/`.
 

@@ -14,6 +14,7 @@
         v-for="(item, i) in achievements"
         :key="item.id"
         v-reveal="{ delay: i * 90 }"
+        v-spotlight
         class="glass card-glow relative flex flex-col overflow-hidden rounded-[22px]"
         :class="[spans[item.id] ?? '', item.id === 'bangkit' ? 'p-7 sm:p-9' : 'p-6']"
       >

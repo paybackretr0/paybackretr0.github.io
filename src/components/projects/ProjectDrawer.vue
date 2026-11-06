@@ -3,7 +3,10 @@
     <Transition name="drawer">
       <div v-if="project" class="fixed inset-0 z-[80]">
         <!-- Backdrop -->
-        <div class="absolute inset-0 bg-[var(--backdrop)]" @click="$emit('close')" />
+        <div
+          class="absolute inset-0 bg-[var(--backdrop)] backdrop-blur-[6px]"
+          @click="$emit('close')"
+        />
 
         <!-- Panel -->
         <aside

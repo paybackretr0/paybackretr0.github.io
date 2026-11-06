@@ -18,10 +18,9 @@
         </h3>
 
         <div class="relative mt-8 ml-3 sm:ml-5">
-          <!-- Growing line -->
+          <!-- Growing line (scroll-driven where supported) -->
           <span
-            v-reveal="{ y: 'grow' }"
-            class="absolute top-1 bottom-0 left-0 w-px origin-top bg-primary/50"
+            class="scroll-grow absolute top-1 bottom-0 left-0 w-px origin-top bg-gradient-to-b from-primary/70 to-violet/30"
           />
 
           <ol class="space-y-10">
@@ -36,7 +35,7 @@
                 class="absolute top-2 left-0 h-[11px] w-[11px] -translate-x-1/2 rounded-full bg-accent shadow-[var(--neu-raised-sm)]"
               />
 
-              <div class="glass card-glow rounded-[22px] p-6 sm:p-7">
+              <div v-spotlight class="glass card-glow rounded-[22px] p-6 sm:p-7">
                 <span class="font-mono text-xs tracking-[0.18em] text-muted-2">{{
                   entry.period
                 }}</span>

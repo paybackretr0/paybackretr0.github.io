@@ -41,6 +41,7 @@
         <!-- Currently -->
         <div
           v-reveal="{ delay: 420 }"
+          v-spotlight
           class="glass card-glow relative mt-10 overflow-hidden rounded-[22px] p-6 sm:p-7"
         >
           <div class="flex items-start gap-5">
@@ -68,8 +69,8 @@
       <!-- Right: quick facts -->
       <aside class="lg:sticky lg:top-28">
         <div
-          v-reveal="{ delay: 160 }"
-          class="glass card-glow relative overflow-hidden rounded-[22px] p-8"
+          v-spotlight
+          class="glass card-glow scroll-rise relative overflow-hidden rounded-[22px] p-8"
         >
           <p class="font-mono text-[11px] tracking-[0.24em] text-muted-2 uppercase">
             {{ t.about.factsLabel }}

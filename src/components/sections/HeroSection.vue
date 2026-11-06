@@ -4,7 +4,10 @@
     id="home"
     class="relative flex min-h-svh flex-col items-center justify-center overflow-hidden pt-28 pb-16 sm:pt-32"
   >
-    <div class="mx-auto flex w-full max-w-6xl flex-col items-center px-6 text-center">
+    <!-- WebGL object (lazy, pointer-reactive) with a static CSS fallback -->
+    <HeroScene />
+
+    <div class="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-6 text-center">
       <!-- Mono kicker -->
       <p
         data-hero
@@ -14,14 +17,14 @@
         {{ t.hero.eyebrow }}
       </p>
 
-      <!-- Name — oversized display type -->
-      <h1
-        data-hero
+      <!-- Name — oversized display type, revealed line by line -->
+      <MaskedLines
+        as="h1"
         class="mt-8 text-[clamp(3rem,8.5vw,7rem)] leading-[0.98] font-extrabold tracking-[-0.03em] sm:leading-[0.95]"
-      >
-        Khalied Nauly
-        <em class="accent-serif text-gradient block">Maturino</em>
-      </h1>
+        :lines="nameLines"
+        :delay="90"
+        :stagger="110"
+      />
 
       <!-- Role + tagline -->
       <div data-hero class="mt-8">
@@ -96,6 +99,7 @@
         <div
           v-for="(stat, i) in stats"
           :key="stat.label"
+          v-spotlight
           class="glass card-glow animate-float rounded-[22px] p-5"
           :style="{ animationDelay: `${i * 0.9}s` }"
         >
@@ -142,8 +146,16 @@ import { scrollToTarget } from '@/composables/useSmoothScroll'
 import SocialLinks from '@/components/SocialLinks.vue'
 import MagneticButton from '@/components/MagneticButton.vue'
 import StatCounter from '@/components/StatCounter.vue'
+import HeroScene from '@/components/three/HeroScene.vue'
+import MaskedLines from '@/components/ui/MaskedLines.vue'
 
 const { t, cvFile, portfolioFile } = useLang()
+
+/** The name, split into the two visual lines the masked reveal animates. */
+const nameLines = [
+  { text: 'Khalied Nauly' },
+  { text: 'Maturino', class: 'accent-serif text-gradient' },
+]
 
 const heroEl = ref<HTMLElement | null>(null)
 

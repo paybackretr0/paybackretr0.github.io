@@ -1,12 +1,12 @@
 <template>
   <div v-reveal class="max-w-3xl" :class="alignClasses">
-    <!-- Mono index + rule + eyebrow -->
+    <!-- Mono index + gradient rule + eyebrow -->
     <p
       class="flex items-center gap-3 font-mono text-[11px] tracking-[0.28em] text-accent uppercase"
       :class="eyebrowAlign"
     >
       <span v-if="index" class="text-muted-2">{{ index }}</span>
-      <span class="h-px w-8 bg-accent/40" />
+      <span class="h-px w-10 bg-gradient-to-r from-accent/70 to-transparent" />
       <span>{{ eyebrow }}</span>
     </p>
 

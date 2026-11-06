@@ -1,6 +1,6 @@
 <template>
   <ScrollProgress />
-  <Backdrop />
+  <AuroraBackground />
 
   <Navbar />
 
@@ -25,7 +25,7 @@ import { useTheme } from '@/composables/useTheme'
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import ScrollProgress from '@/components/ScrollProgress.vue'
-import Backdrop from '@/components/Backdrop.vue'
+import AuroraBackground from '@/components/ui/AuroraBackground.vue'
 
 useSmoothScroll()
 useTheme()

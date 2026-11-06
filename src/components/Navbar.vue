@@ -102,11 +102,16 @@
           </li>
         </ul>
         <div class="mt-4 flex items-center gap-2.5 border-t border-line/60 pt-4">
-          <a href="./porto.pdf" target="_blank" rel="noopener" class="btn btn-ghost flex-1 px-3">
+          <a
+            :href="portfolioFile.url"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-ghost flex-1 px-3"
+          >
             <FileText class="h-4 w-4" />
             {{ t.nav.portfolio }}
           </a>
-          <a href="./cv.pdf" download class="btn btn-primary flex-1 px-3">
+          <a :href="cvFile.url" :download="cvFile.file" class="btn btn-primary flex-1 px-3">
             <Download class="h-4 w-4" />
             {{ t.nav.resume }}
           </a>
@@ -124,7 +129,7 @@ import { useScrollSpy } from '@/composables/useScrollSpy'
 import { useTheme } from '@/composables/useTheme'
 import { scrollToTarget } from '@/composables/useSmoothScroll'
 
-const { t, locale, toggleLang } = useLang()
+const { t, locale, toggleLang, cvFile, portfolioFile } = useLang()
 const { theme, toggleTheme } = useTheme()
 const open = ref(false)
 const scrolled = ref(false)

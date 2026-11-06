@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 
+import { cvDocs, portfolioDoc } from '@/data/docs'
 import { defaultLang, langFromPath, languages, otherLang, type SiteLang } from '@/data/seo'
 
 export type Lang = SiteLang
@@ -322,5 +323,13 @@ export function useLang() {
 
   const t = computed(() => translations[locale.value])
 
-  return { locale, toggleLang, t }
+  /**
+   * Download targets. The CV follows the active language, so the button on
+   * `/en/` downloads the English resume and `/id/` the Indonesian one; the
+   * portfolio deck is the same file for both.
+   */
+  const cvFile = computed(() => cvDocs[locale.value])
+  const portfolioFile = portfolioDoc
+
+  return { locale, toggleLang, t, cvFile, portfolioFile }
 }

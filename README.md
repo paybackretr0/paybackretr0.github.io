@@ -41,6 +41,24 @@ npm run dev
 npm run build
 ```
 
+## CV and portfolio downloads
+
+The hero buttons and the mobile menu download the PDFs in `public/`:
+
+| File in `public/` | Shown on | Label |
+| --- | --- | --- |
+| `CV-Khalied-EN-SD.pdf` | `/en/` | Resume |
+| `CV-Khalied-ID-SD.pdf` | `/id/` | CV |
+| `Khalied-Portfolio.pdf` | both languages | Portfolio / Portofolio |
+
+The mapping lives in [`src/data/docs.ts`](src/data/docs.ts) and every URL is
+built from `import.meta.env.BASE_URL`, so it resolves to an absolute path
+(`/CV-Khalied-EN-SD.pdf`) instead of a page-relative one. That matters because
+the site is prerendered per language: a relative `./cv.pdf` was resolved against
+the language folder (`/en/cv.pdf`), which returned 404 on GitHub Pages even
+though it appeared to work in development. To swap a PDF, replace the file in
+`public/` and keep the name — or update the name in `src/data/docs.ts`.
+
 ## Deploy to GitHub Pages
 
 The site is hosted as a GitHub Pages **user page** at

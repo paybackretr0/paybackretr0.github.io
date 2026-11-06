@@ -13,9 +13,8 @@ export const site = {
   focus: 'Mobile & Web Development',
   email: 'khalidmaturino@gmail.com',
   location: 'Padang, Indonesia',
-  // Relative paths — resolve correctly under the /porto-lied/ GitHub Pages subpath.
-  cv: './cv.pdf',
-  portfolio: './porto.pdf',
+  // CV and portfolio downloads live in src/data/docs.ts — they are per-language
+  // and base-aware, so they are not plain strings on this object.
   github: 'https://github.com/paybackretr0',
   socials: [
     {

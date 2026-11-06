@@ -63,7 +63,7 @@
         </MagneticButton>
         <MagneticButton class="w-full sm:w-auto">
           <a
-            href="./porto.pdf"
+            :href="portfolioFile.url"
             target="_blank"
             rel="noopener"
             class="btn btn-ghost w-full px-7 py-3.5 text-base sm:w-auto"
@@ -74,9 +74,10 @@
         </MagneticButton>
         <MagneticButton class="w-full sm:w-auto">
           <a
-            href="./cv.pdf"
+            :href="cvFile.url"
             target="_blank"
             rel="noopener"
+            :download="cvFile.file"
             class="btn btn-ghost w-full px-7 py-3.5 text-base sm:w-auto"
           >
             <Download class="h-4 w-4" />
@@ -142,7 +143,7 @@ import SocialLinks from '@/components/SocialLinks.vue'
 import MagneticButton from '@/components/MagneticButton.vue'
 import StatCounter from '@/components/StatCounter.vue'
 
-const { t } = useLang()
+const { t, cvFile, portfolioFile } = useLang()
 
 const heroEl = ref<HTMLElement | null>(null)
 

@@ -40,7 +40,8 @@ export function useWebGLSupport(): WebGLCapability {
 
   const coarse = window.matchMedia('(pointer: coarse)').matches
   const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory ?? 8
-  const lowPower = coarse || memory < 4
+  const cores = navigator.hardwareConcurrency ?? 8
+  const lowPower = coarse || memory < 4 || cores <= 4
 
   cached = { supported, lowPower }
   return cached

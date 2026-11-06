@@ -1,6 +1,8 @@
 import { onBeforeUnmount, onMounted } from 'vue'
 import Lenis from 'lenis'
 
+import { isLowPower } from '@/composables/usePerfMode'
+
 let lenis: Lenis | null = null
 let rafId = 0
 
@@ -9,6 +11,10 @@ export function useSmoothScroll() {
   onMounted(() => {
     // Respect reduced motion: keep native scrolling.
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+    // On weak devices native scrolling beats a JS-driven one: Lenis repaints
+    // the whole viewport on every frame it interpolates.
+    if (isLowPower()) return
 
     lenis = new Lenis({
       duration: 1.1,

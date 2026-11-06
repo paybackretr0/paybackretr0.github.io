@@ -42,7 +42,7 @@ export function createHeroScene(
     powerPreference: 'high-performance',
   })
   renderer.setClearAlpha(0)
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, options.mobile ? 1.5 : 2))
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, options.mobile ? 1.25 : 1.5))
 
   const scene = new THREE.Scene()
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100)
@@ -55,7 +55,7 @@ export function createHeroScene(
   scene.add(group)
 
   // ── Particle shell (hollow, slightly squashed sphere) ────
-  const count = options.mobile ? 560 : 1500
+  const count = options.mobile ? 320 : 900
   const positions = new Float32Array(count * 3)
 
   for (let i = 0; i < count; i += 1) {
@@ -110,7 +110,7 @@ export function createHeroScene(
   group.add(halo)
 
   // ── Orbit ring ──────────────────────────────────────────
-  const ringGeometry = new THREE.TorusGeometry(2.18, 0.0045, 8, 180)
+  const ringGeometry = new THREE.TorusGeometry(2.18, 0.0045, 8, 96)
   const ringMaterial = new THREE.MeshBasicMaterial({
     color: accent,
     transparent: true,

@@ -247,16 +247,18 @@
       opacity: 0;
     }
   }
-  /* Aurora blobs drift and breathe instead of looping mechanically. */
+  /* Aurora blobs drift and breathe instead of looping mechanically.
+     Translate only: a scale() on a painted layer forces the browser to
+     re-rasterise it every frame, which is what made the old aurora stutter. */
   @keyframes drift {
     0% {
-      transform: translate3d(-3%, -2%, 0) scale(1);
+      transform: translate3d(-3%, -2%, 0);
     }
     50% {
-      transform: translate3d(2%, 3%, 0) scale(1.12);
+      transform: translate3d(2%, 3%, 0);
     }
     100% {
-      transform: translate3d(4%, -3%, 0) scale(0.96);
+      transform: translate3d(4%, -3%, 0);
     }
   }
   @keyframes shine {
@@ -399,8 +401,8 @@ button,
     background: var(--glass-strong);
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-lift), var(--glass-highlight);
-    backdrop-filter: blur(26px) saturate(150%);
-    -webkit-backdrop-filter: blur(26px) saturate(150%);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
   }
 
   /* Legacy neumorphism class names → glass surfaces */
@@ -427,8 +429,8 @@ button,
     background: var(--nav-bg);
     border-bottom: 1px solid var(--glass-border);
     box-shadow: var(--nav-shadow);
-    backdrop-filter: blur(22px) saturate(160%);
-    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
   }
 
   /* The mobile menu drops down over the hero: it must be fully opaque, or the
@@ -564,18 +566,17 @@ button,
   .aurora-blob {
     position: absolute;
     border-radius: 50%;
-    filter: blur(82px);
-    will-change: transform;
     pointer-events: none;
   }
 
-  /* ── Film grain: kills the flat, "digital" look of gradients ── */
+  /* ── Film grain: kills the flat, "digital" look of gradients ──
+     No mix-blend-mode: blending the whole viewport re-composites every frame
+     while scrolling, which cost far more than the texture was worth. */
   .grain-layer {
     position: absolute;
     inset: 0;
     pointer-events: none;
     opacity: var(--grain-opacity);
-    mix-blend-mode: overlay;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
     background-size: 160px 160px;
   }
@@ -656,11 +657,11 @@ button,
 
   /* ── 3D tilt (v-tilt directive) ───────────────────────── */
   .tilt-target {
-    will-change: transform;
     transition: transform 0.5s var(--ease-out-expo);
   }
 
   .tilt-target[data-tilt-active='true'] {
+    will-change: transform;
     transition: transform 0.12s linear;
   }
 
@@ -769,11 +770,41 @@ button,
   }
 }
 
-@media (max-width: 640px) {
-  /* Phones pay for every blurred pixel: soften the aurora. */
-  .aurora-blob {
-    filter: blur(56px);
+/* Backdrop blur is the most expensive effect left, and on a phone it runs under
+   a fixed bar that re-blurs on every scroll frame. */
+@media (max-width: 900px) {
+  .nav-glass,
+  .glass-strong {
+    background: var(--surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Low-power mode (<html data-perf="low">, set by usePerfMode)
+   ──────────────────────────────────────────────────────────
+   Layout, colour and readability stay identical; only the
+   always-running decoration is dropped. */
+[data-perf='low'] .grain-layer,
+[data-perf='low'] .grid-lines,
+[data-perf='low'] .orb-vignette {
+  display: none;
+}
+
+[data-perf='low'] .aurora-blob,
+[data-perf='low'] .animate-float,
+[data-perf='low'] .animate-float-slow,
+[data-perf='low'] .animate-shine,
+[data-perf='low'] .text-shine {
+  animation: none !important;
+}
+
+[data-perf='low'] .nav-glass,
+[data-perf='low'] .glass-strong {
+  background: var(--surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 /* ══════════════════════════════════════════════════════════

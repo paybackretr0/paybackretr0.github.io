@@ -1,6 +1,8 @@
 import type { Directive } from 'vue'
 import { animate } from 'motion-v'
 
+import { isLowPower } from '@/composables/usePerfMode'
+
 export interface RevealOptions {
   /** Transition delay in ms — used for staggering. */
   delay?: number
@@ -65,12 +67,20 @@ function onScroll() {
   scrollRaf = requestAnimationFrame(() => {
     scrollRaf = 0
     if (pending.size === 0) return
+
+    // Phase 1 — reads only. Collecting every due element before touching the
+    // DOM means the frame pays for a single layout, not one per element
+    // (reading a rect after a write forces the browser to lay out again).
+    const due: HTMLElement[] = []
     for (const el of pending) {
-      // Reveal once the element reaches (or passes) the viewport bottom —
-      // this also catches anything an IntersectionObserver would miss at
-      // high scroll speeds.
-      if (el.getBoundingClientRect().top < window.innerHeight) revealElement(el)
+      // Reveal once the element reaches (or passes) the viewport bottom — this
+      // also catches anything an IntersectionObserver would miss at high
+      // scroll speeds.
+      if (el.getBoundingClientRect().top < window.innerHeight) due.push(el)
     }
+
+    // Phase 2 — writes/animations.
+    for (const el of due) revealElement(el)
   })
 }
 
@@ -93,7 +103,7 @@ export const vReveal: Directive<HTMLElement, RevealOptions> = {
   mounted(el, binding) {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
-    const { delay = 0, y = 28, blur = 6 } = binding.value ?? {}
+    const { delay = 0, y = 28, blur = isLowPower() ? 0 : 6 } = binding.value ?? {}
     const grow = y === 'grow'
 
     el.dataset.revealGrow = grow ? '1' : '0'

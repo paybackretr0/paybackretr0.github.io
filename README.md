@@ -88,6 +88,21 @@ particles and a lower pixel ratio, a frame-time governor degrades it further if
 needed, and a CSS fallback (`.hero-fallback`) covers everything else — including
 the prerenderer, which always runs with reduced motion.
 
+### Performance mode
+
+`usePerfMode` writes `<html data-perf="high|low">` before the first frame. On
+`low` (save-data, ≤4 GB RAM, ≤4 cores, or a phone with ≤6 cores) the always-on
+decoration is dropped: aurora drift, film grain, blueprint grid, backdrop blur,
+floating cards, Lenis smooth scrolling and the WebGL hero. Layout and colour stay
+the same. Force it either way with `?perf=low` / `?perf=high` — the choice is
+remembered in `localStorage` under `perf`.
+
+Heavy effects are also skipped/disabled elsewhere: the aurora blobs are plain
+radial gradients (a `filter: blur()` on an animated layer forces a full
+re-rasterise every frame), the grain has no `mix-blend-mode`, backdrop blur is
+off below 900px, and the WebGL loop stops whenever the hero leaves the viewport
+or the tab is hidden.
+
 ## Visual QA screenshots
 
 ```sh

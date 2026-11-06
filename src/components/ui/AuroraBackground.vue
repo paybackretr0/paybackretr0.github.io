@@ -28,7 +28,9 @@ const blobs = [
     left: '-12%',
     width: '58vw',
     height: '58vw',
-    background: 'radial-gradient(circle, var(--aurora-1), transparent 68%)',
+    // Soft radial gradients instead of a `filter: blur()`: gradients are
+    // painted once, a blur has to be recomputed whenever the layer changes.
+    background: 'radial-gradient(closest-side, var(--aurora-1), transparent 72%)',
     animationDelay: '0s',
   },
   {
@@ -36,7 +38,7 @@ const blobs = [
     right: '-18%',
     width: '62vw',
     height: '62vw',
-    background: 'radial-gradient(circle, var(--aurora-2), transparent 68%)',
+    background: 'radial-gradient(closest-side, var(--aurora-2), transparent 72%)',
     animationDelay: '-9s',
   },
   {
@@ -44,7 +46,7 @@ const blobs = [
     left: '18%',
     width: '72vw',
     height: '60vw',
-    background: 'radial-gradient(circle, var(--aurora-3), transparent 70%)',
+    background: 'radial-gradient(closest-side, var(--aurora-3), transparent 74%)',
     animationDelay: '-17s',
   },
 ] as const

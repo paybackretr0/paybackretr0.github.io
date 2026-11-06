@@ -7,6 +7,8 @@ export interface Achievement {
   title: { en: string; id: string }
   org: { en: string; id: string }
   desc: { en: string; id: string }
+  /** Optional public credential page, rendered as a "verify" link. */
+  href?: string
 }
 
 export const achievements: Achievement[] = [
@@ -19,6 +21,38 @@ export const achievements: Achievement[] = [
     desc: {
       en: 'Completed the intensive Google-backed program covering modern Android development and professional skills.',
       id: 'Menyelesaikan program intensif dukungan Google yang mencakup pengembangan Android modern dan keterampilan profesional.',
+    },
+  },
+  {
+    id: 'red-team-leaders-ccep',
+    type: 'certification',
+    year: '2026',
+    title: {
+      en: 'Certified Cybersecurity Educator Professional (CCEP)',
+      id: 'Certified Cybersecurity Educator Professional (CCEP)',
+    },
+    org: { en: 'Red Team Leaders', id: 'Red Team Leaders' },
+    desc: {
+      en: 'Passed the CCEP exam after completing every requirement of the Red Team Leaders cybersecurity educator track.',
+      id: 'Lulus ujian CCEP setelah menyelesaikan seluruh persyaratan jalur pendidik keamanan siber Red Team Leaders.',
+    },
+    href: 'https://courses.redteamleaders.com/exam-completion/436802c8c8908ab0',
+  },
+  {
+    id: 'dta-network-administrator',
+    type: 'certification',
+    year: '2026',
+    title: {
+      en: 'Fundamental of Associate Network Administrator — National',
+      id: 'Fundamental of Associate Network Administrator — Nasional',
+    },
+    org: {
+      en: 'Digital Talent Academy — Digital Talent Scholarship 2026',
+      id: 'Digital Talent Academy — Digital Talent Scholarship 2026',
+    },
+    desc: {
+      en: 'Completed the 12-hour national training run by the Digital Talent Development Centre, 3 March – 31 December 2026.',
+      id: 'Menyelesaikan pelatihan nasional 12 jam pelatihan yang diselenggarakan Pusat Pengembangan Talenta Digital, 3 Maret – 31 Desember 2026.',
     },
   },
   {

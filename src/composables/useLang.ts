@@ -165,6 +165,7 @@ const translations = {
       certification: 'Certification',
       award: 'Award',
       hackathon: 'Hackathon',
+      verify: 'Verify credential',
     },
     contact: {
       eyebrow: 'Contact',
@@ -289,6 +290,7 @@ const translations = {
       certification: 'Sertifikasi',
       award: 'Penghargaan',
       hackathon: 'Hackathon',
+      verify: 'Verifikasi sertifikat',
     },
     contact: {
       eyebrow: 'Kontak',

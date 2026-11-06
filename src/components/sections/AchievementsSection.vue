@@ -46,6 +46,17 @@
           {{ item.desc[locale] }}
         </p>
 
+        <a
+          v-if="item.href"
+          :href="item.href"
+          target="_blank"
+          rel="noreferrer"
+          class="mt-4 inline-flex w-fit items-center gap-1.5 text-[12px] font-semibold text-accent transition-colors duration-300 hover:text-copy"
+        >
+          {{ t.achievements.verify }}
+          <ArrowUpRight class="h-3.5 w-3.5" />
+        </a>
+
         <span class="mt-auto pt-5 font-mono text-xs text-muted-2">{{ item.year }}</span>
       </div>
     </div>
@@ -53,7 +64,7 @@
 </template>
 
 <script setup lang="ts">
-import { Award, BadgeCheck, Trophy, type LucideIcon } from 'lucide-vue-next'
+import { ArrowUpRight, Award, BadgeCheck, Trophy, type LucideIcon } from 'lucide-vue-next'
 import { useLang } from '@/composables/useLang'
 import { achievements, type AchievementType } from '@/data/achievements'
 import SectionHeading from '@/components/SectionHeading.vue'
@@ -73,11 +84,17 @@ const typeStyles: Record<AchievementType, string> = {
   hackathon: 'text-fuchsia',
 }
 
-/** Bento spans — Bangkit spans a wide featured cell. */
+/**
+ * Bento spans — Bangkit spans a wide featured cell. The order groups the
+ * certifications first, then the award, then the hackathons; each full row adds
+ * up to 6 columns on lg.
+ */
 const spans: Record<string, string> = {
   bangkit: 'sm:col-span-2 lg:col-span-4',
-  'impact-hackathon': 'lg:col-span-2',
-  'cybertech-hackathon': 'lg:col-span-3',
+  'red-team-leaders-ccep': 'sm:col-span-2 lg:col-span-2',
+  'dta-network-administrator': 'sm:col-span-2 lg:col-span-3',
   'gold-medal-dampak': 'sm:col-span-2 lg:col-span-3',
+  'impact-hackathon': 'lg:col-span-3',
+  'cybertech-hackathon': 'lg:col-span-3',
 }
 </script>

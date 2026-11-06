@@ -20,7 +20,7 @@
         @click.prevent="scrollTo('#home')"
       >
         <span class="text-base font-bold tracking-tight text-copy">
-          Khalied<span class="accent-serif text-gradient">.</span>
+          Khalied<span class="accent-serif accent-text">.</span>
         </span>
       </a>
 

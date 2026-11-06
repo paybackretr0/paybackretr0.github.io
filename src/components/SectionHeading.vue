@@ -6,7 +6,7 @@
       :class="eyebrowAlign"
     >
       <span v-if="index" class="text-muted-2">{{ index }}</span>
-      <span class="h-px w-10 bg-gradient-to-r from-accent/70 to-transparent" />
+      <span class="h-px w-10 bg-accent/40" />
       <span>{{ eyebrow }}</span>
     </p>
 
@@ -16,7 +16,7 @@
       <!-- Editorial serif accent: the matching word is set in italic serif -->
       <template v-if="parts.length > 1">
         <span v-for="(part, i) in parts" :key="i">
-          <em v-if="i % 2 === 1" class="accent-serif text-gradient">{{ part }}</em>
+          <em v-if="i % 2 === 1" class="accent-serif accent-text">{{ part }}</em>
           <template v-else>{{ part }}</template>
         </span>
       </template>

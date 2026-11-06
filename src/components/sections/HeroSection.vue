@@ -154,7 +154,7 @@ const { t, cvFile, portfolioFile } = useLang()
 /** The name, split into the two visual lines the masked reveal animates. */
 const nameLines = [
   { text: 'Khalied Nauly' },
-  { text: 'Maturino', class: 'accent-serif text-gradient' },
+  { text: 'Maturino', class: 'accent-serif accent-text' },
 ]
 
 const heroEl = ref<HTMLElement | null>(null)

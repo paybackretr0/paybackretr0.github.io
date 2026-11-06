@@ -45,7 +45,6 @@
   --violet: #a78bfa;
   --cyan: #5ee6f5;
   --glow: rgb(91 140 255 / 0.38);
-  --gradient-brand: linear-gradient(100deg, var(--primary) 0%, var(--violet) 55%, var(--cyan) 100%);
 
   /* ── Text ─────────────────────────────────────────────── */
   --copy: #eef2ff;
@@ -128,7 +127,6 @@
   --violet: #7c3aed;
   --cyan: #0891b2;
   --glow: rgb(47 107 255 / 0.3);
-  --gradient-brand: linear-gradient(100deg, var(--primary) 0%, var(--violet) 55%, var(--cyan) 100%);
 
   --copy: #0e1626;
   --muted: #4f5b73;
@@ -202,7 +200,6 @@
   --animate-drift: drift 26s var(--ease-in-out-soft) infinite alternate;
   --animate-drift-slow: drift 38s var(--ease-in-out-soft) infinite alternate;
   --animate-spin-slow: spin 22s linear infinite;
-  --animate-shine: shine 6s linear infinite;
 
   @keyframes float {
     0%,
@@ -259,14 +256,6 @@
     }
     100% {
       transform: translate3d(4%, -3%, 0);
-    }
-  }
-  @keyframes shine {
-    0% {
-      background-position: 0% 50%;
-    }
-    100% {
-      background-position: 200% 50%;
     }
   }
 }
@@ -441,14 +430,10 @@ button,
     box-shadow: var(--nav-shadow);
   }
 
-  /* ── Editorial accent text (gradient) ─────────────────── */
-  .text-gradient {
-    background-image: var(--gradient-brand);
-    background-size: 200% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+  /* ── Editorial accent text (solid, no gradient) ───────── */
+  .accent-text {
+    color: var(--accent);
+    -webkit-text-fill-color: currentColor;
   }
 
   /* ── Buttons ──────────────────────────────────────────── */
@@ -458,25 +443,22 @@ button,
       transform var(--dur) var(--ease-out-expo),
       box-shadow var(--dur) var(--ease-out-expo),
       background-color var(--dur) var(--ease-out-quint),
-      background-position 0.6s var(--ease-out-expo),
       border-color var(--dur) var(--ease-out-quint),
       color var(--dur) var(--ease-out-quint);
   }
 
   .btn-primary {
     @apply text-white;
-    background-image: var(--gradient-brand);
-    background-size: 180% 180%;
-    background-position: 0% 50%;
+    background-color: var(--primary);
     box-shadow:
       0 16px 36px -20px var(--glow),
-      inset 0 1px 0 rgb(255 255 255 / 0.28);
+      inset 0 1px 0 rgb(255 255 255 / 0.24);
   }
   .btn-primary:hover {
-    background-position: 100% 50%;
+    background-color: var(--primary-soft);
     box-shadow:
       0 22px 46px -20px var(--glow),
-      inset 0 1px 0 rgb(255 255 255 / 0.34);
+      inset 0 1px 0 rgb(255 255 255 / 0.3);
     transform: translateY(-2px);
   }
   .btn-primary:active {
@@ -606,24 +588,6 @@ button,
 
   .spotlight-card:hover::after {
     opacity: 1;
-  }
-
-  /* ── Shimmering gradient text (headline accents) ─────────*/
-  .text-shine {
-    background-image: linear-gradient(
-      100deg,
-      var(--accent) 0%,
-      var(--violet) 25%,
-      var(--cyan) 50%,
-      var(--violet) 75%,
-      var(--accent) 100%
-    );
-    background-size: 200% 100%;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
-    animation: shine 7s linear infinite;
   }
 
   /* ── Fade the edges of a scroller / marquee ───────────── */
@@ -794,9 +758,7 @@ button,
 
 [data-perf='low'] .aurora-blob,
 [data-perf='low'] .animate-float,
-[data-perf='low'] .animate-float-slow,
-[data-perf='low'] .animate-shine,
-[data-perf='low'] .text-shine {
+[data-perf='low'] .animate-float-slow {
   animation: none !important;
 }
 

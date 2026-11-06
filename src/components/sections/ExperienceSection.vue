@@ -19,9 +19,7 @@
 
         <div class="relative mt-8 ml-3 sm:ml-5">
           <!-- Growing line (scroll-driven where supported) -->
-          <span
-            class="scroll-grow absolute top-1 bottom-0 left-0 w-px origin-top bg-gradient-to-b from-primary/70 to-violet/30"
-          />
+          <span class="scroll-grow absolute top-1 bottom-0 left-0 w-px origin-top bg-primary/50" />
 
           <ol class="space-y-10">
             <li

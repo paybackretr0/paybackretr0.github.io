@@ -21,7 +21,7 @@
         >
           <template v-if="titleParts.length > 1">
             <span v-for="(part, i) in titleParts" :key="i">
-              <em v-if="i % 2 === 1" class="accent-serif text-gradient">{{ part }}</em>
+              <em v-if="i % 2 === 1" class="accent-serif accent-text">{{ part }}</em>
               <template v-else>{{ part }}</template>
             </span>
           </template>

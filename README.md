@@ -64,12 +64,15 @@ though it appeared to work in development. To swap a PDF, replace the file in
 The UI is built from one visual language, all of it defined in
 [`src/style.css`](src/style.css):
 
-- **Tokens** — `--ink` / `--surface` / `--glass` / `--glass-border`, the brand
-  gradient (`--primary` → `--violet` → `--cyan`), motion easings (`--ease-out-expo`)
-  and the aurora washes (`--aurora-1..3`). The light theme overrides the same
-  names under `[data-theme='light']`, so a single attribute re-themes everything.
+- **Tokens** — `--ink` / `--surface` / `--glass` / `--glass-border`, the solid
+  brand colours (`--primary`, `--violet`, `--cyan` — buttons and accent text use
+  them flat, never as a gradient), motion easings (`--ease-out-expo`) and the
+  aurora washes (`--aurora-1..3`). The light theme overrides the same names under
+  `[data-theme='light']`, so a single attribute re-themes everything.
 - **Surfaces** — `.glass`, `.glass-strong`, `.nav-glass`, `.nav-panel` and the
   legacy `.neu-*` names, kept as aliases so older markup keeps rendering.
+- **Type** — `accent-serif` (Instrument Serif italic) and `.accent-text` (solid
+  accent colour) for the accent word inside a heading.
 - **Effects** — `.aurora-blob` + `.grain-layer` (background, in
   `AuroraBackground.vue`), `.spotlight-card` (cursor glow, driven by `v-spotlight`),
   `.tilt-target` (3D tilt, driven by `v-tilt`), `.marquee-track` (`Marquee.vue`).

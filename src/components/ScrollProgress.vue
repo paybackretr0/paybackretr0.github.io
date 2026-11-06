@@ -1,7 +1,7 @@
 <template>
   <div aria-hidden="true" class="fixed inset-x-0 top-[env(safe-area-inset-top)] z-[70] h-[2px]">
     <div
-      class="h-full origin-left bg-gradient-to-r from-primary via-violet to-cyan shadow-[0_0_14px_var(--glow)]"
+      class="h-full origin-left bg-primary shadow-[0_0_14px_var(--glow)]"
       :style="{ transform: `scaleX(${progress})` }"
     />
   </div>

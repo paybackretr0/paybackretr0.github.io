@@ -1,123 +1,235 @@
 @import 'tailwindcss';
 
-/* ── Theme tokens (runtime variables) ──────────────────────
-   Dark is the default. [data-theme="light"] switches the whole
-   palette — every color below flows through Tailwind's @theme
-   tokens, so a single attribute toggle re-themes the app. */
+/* ══════════════════════════════════════════════════════════
+   Studio Marble — design tokens
+   ──────────────────────────────────────────────────────────
+   A gallery at night: warm near-black walls, bone type, a
+   single bronze accent and one soft skylight. Depth is
+   physical — layered contact/ambient/key shadows and a 1px
+   highlight on the edge that faces the light — instead of
+   translucent glass. Every legacy token name is preserved so
+   existing markup keeps rendering while sections are rebuilt. */
 :root {
-  /* ── Neumorphism (Soft UI) ───────────────────────────────
-     Every surface shares the page colour; depth comes from a
-     light/dark shadow pair instead of borders or blur. */
-  --ink: #262b33;
-  --surface: #262b33;
-  --elevated: #2b313a;
-  --tile: #262b33;
-  --tile-2: #2f353f;
-  /* Hairlines are rarer in Soft UI, so the few dividers left are kept
-     soft but still visible (table rows, footer rule, section rules). */
-  --line: rgb(255 255 255 / 0.1);
+  /* ── Base ─────────────────────────────────────────────── */
+  --ink: #0c0a08;
+  --surface: #12100c;
+  --elevated: #171410;
+  --tile: #100e0b;
+  --tile-2: #1b1712;
+  --line: rgb(239 234 225 / 0.09);
 
-  /* The dual shadow pair that makes Soft UI read as extruded */
-  --neu-dark: #1b1f26;
-  --neu-light: #323945;
-  --neu-raised: 8px 8px 18px var(--neu-dark), -8px -8px 18px var(--neu-light);
-  --neu-raised-sm: 4px 4px 10px var(--neu-dark), -4px -4px 10px var(--neu-light);
-  --neu-raised-lg: 12px 12px 26px var(--neu-dark), -12px -12px 26px var(--neu-light);
-  --neu-inset: inset 5px 5px 11px var(--neu-dark), inset -5px -5px 11px var(--neu-light);
-  --neu-pressed: inset 3px 3px 7px var(--neu-dark), inset -3px -3px 7px var(--neu-light);
+  /* ── Glass (kept as a name; now reads as honed stone) ─── */
+  --glass: rgb(239 234 225 / 0.045);
+  --glass-strong: rgb(16 14 11 / 0.82);
+  --glass-border: rgb(239 234 225 / 0.12);
+  --glass-blur: 14px;
+  --glass-highlight: inset 0 1px 0 rgb(255 247 235 / 0.07);
 
-  /* Brand — a single accent carries every highlight */
-  --primary: #2563eb;
-  --primary-soft: #3b82f6;
-  --accent: #60a5fa;
+  /* ── Depth: contact + ambient + key ───────────────────── */
+  --shadow-ambient: 0 1px 2px rgb(0 0 0 / 0.55), 0 22px 48px -26px rgb(0 0 0 / 0.95);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.5), 0 44px 88px -40px rgb(0 0 0 / 1);
 
-  /* Text */
-  --copy: #eef1f6;
-  --muted: #a9b2c0;
-  --muted-2: #7b8494;
+  /* Legacy neumorphism names → new depth system (markup compatibility) */
+  --neu-dark: #080706;
+  --neu-light: rgb(255 247 235 / 0.06);
+  --neu-raised: var(--shadow-ambient);
+  --neu-raised-sm: 0 1px 2px rgb(0 0 0 / 0.5), 0 14px 32px -22px rgb(0 0 0 / 0.9);
+  --neu-raised-lg: var(--shadow-lift);
+  --neu-inset: inset 0 1px 0 rgb(255 247 235 / 0.05), inset 0 0 0 1px rgb(255 247 235 / 0.05);
+  --neu-pressed: inset 0 3px 12px rgb(0 0 0 / 0.6);
 
-  /* Status (dark: 300/400 shades, light: 600 shades) */
-  --ok: #34d399;
-  --success: #6ee7b7;
-  --warn: #fcd34d;
-  --info: #7dd3fc;
-  --violet: #c4b5fd;
-  --fuchsia: #f0abfc;
+  /* ── Brand: one bronze accent, everything else is stone ─ */
+  --primary: #b08d57;
+  --primary-soft: #c9a96a;
+  --on-primary: #14100b;
+  --accent: #c9ae86;
+  --violet: #9a8b78;
+  --cyan: #7e8b85;
+  --glow: rgb(176 141 87 / 0.32);
 
-  /* Surfaces (kept as aliases so existing classes keep working) */
-  --glass: var(--surface);
-  --glass-border: transparent;
-  --glass-strong: var(--surface);
-  --backdrop: rgb(27 31 38 / 0.72);
-  --nav-bg: var(--surface);
-  --nav-shadow: 0 14px 30px -16px var(--neu-dark), 0 1px 0 var(--neu-light);
-  --drawer-shadow: -24px 0 50px -26px var(--neu-dark);
+  /* ── Text ─────────────────────────────────────────────── */
+  --copy: #efeae1;
+  --muted: #a7a093;
+  --muted-2: #7a7365;
 
-  /* Git stream branches */
-  --branch-web: #60a5fa;
-  --branch-mobile: #38bdf8;
+  /* ── Status ───────────────────────────────────────────── */
+  --ok: #8fa37e;
+  --success: #9db28b;
+  --warn: #d2a75e;
+  --info: #9cb0b7;
+  --fuchsia: #c9ae86;
 
-  /* Decorative */
-  --grid-line: transparent;
-  --scroll-track: #262b33;
-  --scroll-thumb: #343b46;
-  --scroll-thumb-hover: #3f4753;
-  --sel-bg: rgb(37 99 235 / 0.45);
-  --sel-color: #f8fafc;
+  /* ── Surfaces used by layout chrome ───────────────────── */
+  --backdrop: rgb(8 7 6 / 0.76);
+  --nav-bg: rgb(12 10 8 / 0.72);
+  --nav-shadow: 0 1px 0 rgb(239 234 225 / 0.06), 0 18px 40px -30px rgb(0 0 0 / 0.9);
+  --drawer-shadow: -40px 0 90px -44px rgb(0 0 0 / 0.95);
+
+  /* ── Skylight wash (was: aurora field) ────────────────── */
+  --aurora-1: rgb(176 141 87 / 0.14);
+  --aurora-2: rgb(126 110 92 / 0.1);
+  --aurora-3: rgb(92 100 104 / 0.08);
+  --grain-opacity: 0.06;
+
+  /* ── Physical detail ──────────────────────────────────── */
+  --hairline: rgb(239 234 225 / 0.1);
+  --hairline-strong: rgb(239 234 225 / 0.2);
+  --edge-light: inset 0 1px 0 rgb(255 247 235 / 0.07);
+  --bronze-line: rgb(176 141 87 / 0.35);
+  --key-light: 28% 16%;
+
+  /* ── The room (components/three/roomScene.three.ts) ─────
+     Read straight from CSS by the scene module, so the stage
+     re-tints with the theme instead of keeping a second palette. */
+  --room-wall: #1d1913;
+  --room-floor: #14110d;
+  --room-beam: #ffe3b0;
+  --room-dust: #ffefd2;
+  --room-fog: #0b0a08;
+  --room-shadow: #050403;
+
+  /* ── Billiard scene (components/three/billiardScene.three.ts) ─
+     Plain hex on purpose: three.js cannot parse an `rgb()` string
+     with alpha, and these values are read straight from CSS by
+     the scene module, so the 3D table re-tints with the theme
+     instead of hard-coding a second palette in TypeScript. */
+  --scene-fog: #08070a;
+  --scene-felt: #14110e;
+  --scene-felt-line: #4a3f2e;
+  --scene-cushion: #1d1915;
+  --scene-rail: #14110d;
+  --scene-pocket: #030303;
+  --scene-ball: #17130f;
+  --scene-ball-rim: #c9ae86;
+  --scene-cue: #2a231b;
+  --scene-cue-tip: #c9ae86;
+
+  /* ── Git stream branches ──────────────────────────────── */
+  --branch-web: #b08d57;
+  --branch-mobile: #7e8b85;
+
+  /* ── Decorative ───────────────────────────────────────── */
+  --grid-line: rgb(239 234 225 / 0.04);
+  --scroll-track: #0c0a08;
+  --scroll-thumb: #2a241c;
+  --scroll-thumb-hover: #3d352a;
+  --sel-bg: rgb(176 141 87 / 0.3);
+  --sel-color: #faf7f2;
+
+  /* ── Motion ───────────────────────────────────────────── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-soft: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 180ms;
+  --dur: 320ms;
+  --dur-slow: 620ms;
 
   color-scheme: dark;
 }
 
+/* ══════════════════════════════════════════════════════════
+   Light theme — the same gallery at midday: plaster walls, warm
+   ink type and a shallower, browner shadow. The bronze accent
+   darkens so it still carries contrast on a light ground. */
 [data-theme='light'] {
-  /* Classic Soft UI base — the same #e0e5ec / #a3b1c6 / #ffffff
-     triple used by the well-known neumorphism examples. */
-  --ink: #e0e5ec;
-  --surface: #e0e5ec;
-  --elevated: #e7ebf1;
-  --tile: #e0e5ec;
-  --tile-2: #d5dae3;
-  --line: rgb(15 23 42 / 0.1);
+  --ink: #f3efe7;
+  --surface: #faf7f1;
+  --elevated: #ffffff;
+  --tile: #f7f3ec;
+  --tile-2: #ece6db;
+  --line: rgb(20 18 15 / 0.1);
 
-  --neu-dark: #a3b1c6;
+  --glass: rgb(255 255 255 / 0.6);
+  --glass-strong: rgb(255 255 255 / 0.86);
+  --glass-border: rgb(20 18 15 / 0.1);
+  --glass-highlight: inset 0 1px 0 rgb(255 255 255 / 0.9);
+
+  --shadow-ambient: 0 1px 2px rgb(20 18 15 / 0.06), 0 22px 44px -28px rgb(20 18 15 / 0.3);
+  --shadow-lift: 0 2px 6px rgb(20 18 15 / 0.07), 0 40px 80px -36px rgb(20 18 15 / 0.34);
+
+  --neu-dark: #cfc6b7;
   --neu-light: #ffffff;
+  --neu-raised: var(--shadow-ambient);
+  --neu-raised-sm: 0 1px 2px rgb(20 18 15 / 0.06), 0 12px 26px -22px rgb(20 18 15 / 0.34);
+  --neu-raised-lg: var(--shadow-lift);
+  --neu-inset: inset 0 1px 0 rgb(255 255 255 / 0.85), inset 0 0 0 1px rgb(20 18 15 / 0.07);
+  --neu-pressed: inset 0 3px 10px rgb(20 18 15 / 0.16);
 
-  --primary: #2563eb;
-  --primary-soft: #1d4ed8;
-  --accent: #2563eb;
+  --primary: #7a5c33;
+  --primary-soft: #5e4526;
+  --on-primary: #fdfaf4;
+  --accent: #6e5433;
+  --violet: #6b6257;
+  --cyan: #4e5a5c;
+  --glow: rgb(122 92 51 / 0.24);
 
-  --copy: #2b3240;
-  --muted: #5c6472;
-  --muted-2: #7d8695;
+  --copy: #141210;
+  --muted: #5c564d;
+  --muted-2: #837c71;
 
-  --ok: #059669;
-  --success: #059669;
-  --warn: #d97706;
-  --info: #0284c7;
-  --violet: #7c3aed;
-  --fuchsia: #c026d3;
+  --ok: #5f7350;
+  --success: #5f7350;
+  --warn: #a2700f;
+  --info: #4e6a70;
+  --fuchsia: #7a5c33;
 
-  --glass: var(--surface);
-  --glass-border: transparent;
-  --glass-strong: var(--surface);
-  --backdrop: rgb(43 50 64 / 0.35);
-  --nav-bg: var(--surface);
-  --nav-shadow: 0 14px 30px -16px var(--neu-dark), 0 1px 0 var(--neu-light);
-  --drawer-shadow: -24px 0 50px -26px var(--neu-dark);
+  --backdrop: rgb(20 18 15 / 0.26);
+  --nav-bg: rgb(250 247 241 / 0.78);
+  --nav-shadow: 0 1px 0 rgb(20 18 15 / 0.06), 0 18px 40px -32px rgb(20 18 15 / 0.34);
+  --drawer-shadow: -40px 0 90px -50px rgb(20 18 15 / 0.36);
 
-  --branch-web: #2563eb;
-  --branch-mobile: #0284c7;
+  --aurora-1: rgb(176 141 87 / 0.13);
+  --aurora-2: rgb(140 128 112 / 0.1);
+  --aurora-3: rgb(110 120 122 / 0.08);
+  --grain-opacity: 0.04;
 
-  --grid-line: transparent;
-  --scroll-track: #e0e5ec;
-  --scroll-thumb: #c2c9d6;
-  --scroll-thumb-hover: #adb6c6;
-  --sel-bg: rgb(37 99 235 / 0.18);
-  --sel-color: #1c1917;
+  --hairline: rgb(20 18 15 / 0.11);
+  --hairline-strong: rgb(20 18 15 / 0.22);
+  --edge-light: inset 0 1px 0 rgb(255 255 255 / 0.9);
+  --bronze-line: rgb(122 92 51 / 0.32);
+  --key-light: 30% 14%;
+
+  /* Daylight room: the shutters are open, so there is no visible shaft — the
+     light is the room itself. Wall and floor drop to mid plaster so the
+     directional key still has something to model. */
+  --room-wall: #c8beac;
+  --room-floor: #b8ad99;
+  --room-beam: #fff8ec;
+  --room-dust: #ffffff;
+  --room-fog: #ded6c8;
+  /* A shadow has to stay dark in the day theme too, which is exactly why it
+     cannot reuse --ink: in the light theme --ink is the plaster colour. */
+  --room-shadow: #4a4033;
+
+  /* Daylight table: the light theme is a different time of day, not a tint.
+     Balls invert here — dark spheres with pale bands — because pale balls on
+     pale cloth simply disappear. */
+  --scene-fog: #f0ebe2;
+  --scene-felt: #b8ab98;
+  --scene-felt-line: #8a7c66;
+  --scene-cushion: #a89b87;
+  --scene-rail: #948671;
+  --scene-pocket: #6b6154;
+  --scene-ball: #14110e;
+  --scene-ball-rim: #f6f1e6;
+  --scene-cue: #c8b393;
+  --scene-cue-tip: #6e5433;
+
+  --branch-web: #7a5c33;
+  --branch-mobile: #4e5a5c;
+
+  --grid-line: rgb(20 18 15 / 0.05);
+  --scroll-track: #f3efe7;
+  --scroll-thumb: #cdc4b6;
+  --scroll-thumb-hover: #b8ae9e;
+  --sel-bg: rgb(122 92 51 / 0.22);
+  --sel-color: #141210;
 
   color-scheme: light;
 }
 
-/* ── Tailwind theme tokens (map utilities → runtime vars) ── */
+/* ══════════════════════════════════════════════════════════
+   Tailwind theme tokens (map utilities → runtime vars) */
 @theme {
   --color-ink: var(--ink);
   --color-surface: var(--surface);
@@ -128,6 +240,8 @@
   --color-primary: var(--primary);
   --color-primary-soft: var(--primary-soft);
   --color-accent: var(--accent);
+  --color-violet: var(--violet);
+  --color-cyan: var(--cyan);
   --color-copy: var(--copy);
   --color-muted: var(--muted);
   --color-muted-2: var(--muted-2);
@@ -135,12 +249,9 @@
   --color-success: var(--success);
   --color-warn: var(--warn);
   --color-info: var(--info);
-  --color-violet: var(--violet);
   --color-fuchsia: var(--fuchsia);
 
-  /* ── Typography ────────────────────────────────────────────
-     Cabinet Grotesk (display) + Manrope (body) + JetBrains Mono
-     (technical) + Instrument Serif (editorial accent). */
+  /* ── Typography ───────────────────────────────────────── */
   --font-display:
     'Cabinet Grotesk', 'Avenir Next', 'Helvetica Neue', ui-sans-serif, system-ui, -apple-system,
     'Segoe UI', sans-serif;
@@ -148,11 +259,14 @@
   --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', SFMono-Regular, Menlo, monospace;
   --font-serif: 'Instrument Serif', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
 
-  /* ── Animations ──────────────────────────────────────────── */
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-float-slow: float-slow 9s ease-in-out infinite;
-  --animate-pulse-dot: pulse-dot 2.2s ease-in-out infinite;
-  --animate-scroll-hint: scroll-hint 2.2s ease-in-out infinite;
+  /* ── Animations ───────────────────────────────────────── */
+  --animate-float: float 7s var(--ease-in-out-soft) infinite;
+  --animate-float-slow: float-slow 11s var(--ease-in-out-soft) infinite;
+  --animate-pulse-dot: pulse-dot 2.4s var(--ease-in-out-soft) infinite;
+  --animate-scroll-hint: scroll-hint 2.2s var(--ease-in-out-soft) infinite;
+  --animate-drift: drift 26s var(--ease-in-out-soft) infinite alternate;
+  --animate-drift-slow: drift 38s var(--ease-in-out-soft) infinite alternate;
+  --animate-spin-slow: spin 22s linear infinite;
 
   @keyframes float {
     0%,
@@ -197,9 +311,24 @@
       opacity: 0;
     }
   }
+  /* Aurora blobs drift and breathe instead of looping mechanically.
+     Translate only: a scale() on a painted layer forces the browser to
+     re-rasterise it every frame, which is what made the old aurora stutter. */
+  @keyframes drift {
+    0% {
+      transform: translate3d(-3%, -2%, 0);
+    }
+    50% {
+      transform: translate3d(2%, 3%, 0);
+    }
+    100% {
+      transform: translate3d(4%, -3%, 0);
+    }
+  }
 }
 
-/* ── Lenis smooth scroll ──────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════
+   Smooth scrolling (Lenis) */
 html.lenis,
 html.lenis body {
   height: auto;
@@ -211,12 +340,11 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* ── Base ─────────────────────────────────────────────────── */
+/* ══════════════════════════════════════════════════════════
+   Base */
 html {
   scroll-behavior: smooth;
-  /* No gray flash / selection tint when tapping on mobile */
   -webkit-tap-highlight-color: transparent;
-  /* Clip (not hidden) keeps overflow from ever breaking position: fixed */
   overflow-x: hidden;
   overflow-x: clip;
 }
@@ -227,21 +355,18 @@ body {
   overflow-x: hidden;
   overflow-x: clip;
   transition:
-    background-color 0.4s ease,
-    color 0.4s ease;
+    background-color 0.5s var(--ease-out-quint),
+    color 0.5s var(--ease-out-quint);
 }
 
-/* Kill the 300ms double-tap delay / double-tap zoom on touch, while
-   keeping pinch-zoom on links and buttons for accessibility. */
+/* Kill the 300ms double-tap delay on touch, while keeping pinch-zoom. */
 a,
 button,
 [role='button'] {
   touch-action: manipulation;
 }
 
-/* ── Display type: Cabinet Grotesk for headings ─────────────
-   Kept inside @layer base so tracking utilities (e.g. tracking-tighter)
-   still win for large headings. */
+/* Display type: Cabinet Grotesk, tighter optical tracking on big sizes. */
 @layer base {
   h1,
   h2,
@@ -250,13 +375,12 @@ button,
   h5,
   h6 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.025em;
     text-wrap: balance;
   }
 }
 
-/* ── Editorial serif accent (Instrument Serif italic) ──────
-   Used sparingly for highlighted words inside display type. */
+/* Editorial serif accent (Instrument Serif italic) */
 @layer components {
   .accent-serif {
     font-family: var(--font-serif);
@@ -288,14 +412,13 @@ button,
   background: var(--scroll-thumb-hover);
 }
 
+/* ══════════════════════════════════════════════════════════
+   Components */
 @layer components {
   /* ── Layout helpers ─────────────────────────────────────── */
   .section {
     @apply relative mx-auto max-w-6xl px-6 py-24 sm:py-32;
   }
-
-  /* Vary the vertical rhythm between sections so the page
-     never feels like a uniform grid of equal blocks. */
   .section-tight {
     @apply py-20 sm:py-24;
   }
@@ -303,56 +426,109 @@ button,
     @apply py-28 sm:py-36;
   }
 
-  /* ── Soft UI surfaces ───────────────────────────────────────
-     Raised = extruded from the page, inset = pressed into it.
-     The existing class names are kept so every section picks up the
-     new skin without markup changes. */
+  /* Hairline divider that fades at both ends — replaces hard rules. */
+  .hairline {
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--glass-border) 18%,
+      var(--glass-border) 82%,
+      transparent
+    );
+  }
+
+  /* ── Glass surfaces ─────────────────────────────────────
+     `.glass` is intentionally blur-free: it is used on dozens of
+     cards at once, and translucent tint + hairline border over the
+     aurora already reads as glass. Only the two surfaces that sit
+     on top of scrolling content (nav, drawer, CTA) pay for the
+     backdrop blur. */
   .glass {
-    background: var(--surface);
-    border: 0;
-    box-shadow: var(--neu-raised);
+    position: relative;
+    background:
+      linear-gradient(180deg, rgb(255 255 255 / 0.05), rgb(255 255 255 / 0.01)), var(--glass);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-ambient), var(--glass-highlight);
   }
 
   .glass-strong {
-    background: var(--surface);
-    border: 0;
-    box-shadow: var(--neu-raised-lg);
+    position: relative;
+    background: var(--glass-strong);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-lift), var(--glass-highlight);
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
   }
 
+  /* Legacy neumorphism class names → glass surfaces */
   .neu-raised {
-    background: var(--surface);
-    box-shadow: var(--neu-raised);
+    background: color-mix(in srgb, var(--copy) 6%, transparent);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-ambient), var(--glass-highlight);
   }
 
   .neu-raised-sm {
-    background: var(--surface);
-    box-shadow: var(--neu-raised-sm);
+    background: color-mix(in srgb, var(--copy) 6%, transparent);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--neu-raised-sm), var(--glass-highlight);
   }
 
   .neu-inset {
-    background: var(--surface);
+    background: color-mix(in srgb, var(--copy) 3%, transparent);
+    border: 1px solid var(--glass-border);
     box-shadow: var(--neu-inset);
   }
 
-  /* ── Editorial accent text (solid) ──────────────────────── */
-  .text-gradient {
-    color: var(--accent);
+  /* ── Nav / drawer chrome ──────────────────────────────── */
+  .nav-glass {
+    background: var(--nav-bg);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: var(--nav-shadow);
+    backdrop-filter: blur(14px) saturate(150%);
+    -webkit-backdrop-filter: blur(14px) saturate(150%);
   }
 
-  /* ── Buttons ────────────────────────────────────────────── */
+  /* The mobile menu drops down over the hero: it must be fully opaque, or the
+     headline ghosts through the list. */
+  .nav-panel {
+    background: var(--ink);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: var(--nav-shadow);
+  }
+
+  /* ── Editorial accent text (solid, no gradient) ───────── */
+  .accent-text {
+    color: var(--accent);
+    -webkit-text-fill-color: currentColor;
+  }
+
+  /* ── Buttons ──────────────────────────────────────────── */
   .btn {
-    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-[14px] px-5 py-2.5 text-sm font-semibold transition-all duration-300 select-none focus-visible:ring-2 focus-visible:ring-accent/60 focus-visible:outline-none;
+    @apply inline-flex cursor-pointer items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold select-none;
+    transition:
+      transform var(--dur) var(--ease-out-expo),
+      box-shadow var(--dur) var(--ease-out-expo),
+      background-color var(--dur) var(--ease-out-quint),
+      border-color var(--dur) var(--ease-out-quint),
+      color var(--dur) var(--ease-out-quint);
   }
 
   .btn-primary {
-    @apply text-white;
+    /* Dark ink on bronze in the night gallery, warm bone on the deeper
+       daylight bronze — white on #b08d57 is only 3.06:1. */
+    color: var(--on-primary);
     background-color: var(--primary);
-    box-shadow: var(--neu-raised-sm);
+    box-shadow:
+      0 16px 36px -20px var(--glow),
+      inset 0 1px 0 rgb(255 255 255 / 0.24);
   }
   .btn-primary:hover {
     background-color: var(--primary-soft);
-    box-shadow: var(--neu-raised);
-    transform: translateY(-1px);
+    box-shadow:
+      0 22px 46px -20px var(--glow),
+      inset 0 1px 0 rgb(255 255 255 / 0.3);
+    transform: translateY(-2px);
   }
   .btn-primary:active {
     transform: translateY(0);
@@ -361,66 +537,674 @@ button,
 
   .btn-ghost {
     @apply text-copy;
-    background: var(--surface);
+    background: color-mix(in srgb, var(--copy) 6%, transparent);
+    border: 1px solid var(--glass-border);
     box-shadow: var(--neu-raised-sm);
   }
   .btn-ghost:hover {
-    box-shadow: var(--neu-raised);
+    background: color-mix(in srgb, var(--copy) 10%, transparent);
+    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
+    transform: translateY(-2px);
   }
   .btn-ghost:active {
+    transform: translateY(0);
     box-shadow: var(--neu-pressed);
   }
 
-  /* ── Language pill ──────────────────────────────────────── */
+  /* ── Language pill ────────────────────────────────────── */
   .lang-pill {
     @apply flex items-center gap-0.5 rounded-full p-0.5;
-    background: var(--surface);
-    box-shadow: var(--neu-inset);
+    background: color-mix(in srgb, var(--copy) 5%, transparent);
+    border: 1px solid var(--glass-border);
   }
   .lang-pill > span {
     @apply rounded-full px-2.5 py-1 text-[11px] font-semibold text-muted transition-all duration-300;
   }
   .lang-pill > span.is-active {
     @apply text-copy;
-    background: var(--surface);
-    box-shadow: var(--neu-raised-sm);
+    background: color-mix(in srgb, var(--copy) 11%, transparent);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.16),
+      0 6px 16px -10px rgb(0 0 0 / 0.9);
   }
 
-  /* ── Orb vignette (theme aware) ─────────────────────────── */
+  /* ── Vignette that blends the page edges into the aurora ─ */
   .orb-vignette {
-    background: radial-gradient(ellipse at center, transparent 45%, var(--ink) 100%);
+    background: radial-gradient(ellipse at 50% 42%, transparent 55%, var(--ink) 100%);
   }
 
-  /* ── Card hover: the extrusion deepens instead of glowing ── */
+  /* ── Card hover: lift + accent hairline ───────────────── */
   .card-glow {
     transition:
-      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-      box-shadow 0.45s ease,
-      background-color 0.45s ease;
+      transform 0.5s var(--ease-out-expo),
+      box-shadow 0.5s var(--ease-out-expo),
+      border-color 0.4s var(--ease-out-quint),
+      background-color 0.4s var(--ease-out-quint);
   }
   .card-glow:hover {
     transform: translateY(-4px);
-    box-shadow: var(--neu-raised-lg);
+    border-color: color-mix(in srgb, var(--accent) 34%, transparent);
+    box-shadow: var(--shadow-lift), var(--glass-highlight);
   }
 }
 
-/* ── Page transition ──────────────────────────────────────── */
+/* Focus ring shared by every interactive element */
+:where(a, button, [role='button'], input, textarea, select):focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--accent) 70%, transparent);
+  outline-offset: 3px;
+  border-radius: 12px;
+}
+
+/* ── Marquee loop (see components/ui/Marquee.vue) ─────────── */
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Aurora Glass utilities */
+@layer components {
+  /* ── Aurora field ────────────────────────────────────────
+     Three drifting blobs behind everything. Blurred, low
+     opacity, and % sized so they never introduce overflow. */
+  .aurora-field {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .aurora-blob {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* ── Film grain: kills the flat, "digital" look of gradients ──
+     No mix-blend-mode: blending the whole viewport re-composites every frame
+     while scrolling, which cost far more than the texture was worth. */
+  .grain-layer {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+    background-size: 160px 160px;
+  }
+
+  /* ── Cursor spotlight (components/ui/SpotlightCard.vue) ───
+     JS writes --mx / --my in px, CSS paints the glow. The
+     pointer handler therefore only writes two custom
+     properties per frame. */
+  .spotlight-card {
+    position: relative;
+  }
+
+  .spotlight-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      260px circle at var(--mx, 50%) var(--my, 0%),
+      color-mix(in srgb, var(--accent) 20%, transparent),
+      transparent 68%
+    );
+    opacity: 0;
+    transition: opacity 0.45s var(--ease-out-quint);
+  }
+
+  .spotlight-card:hover::after {
+    opacity: 1;
+  }
+
+  /* ── Fade the edges of a scroller / marquee ───────────── */
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  }
+
+  /* ── Blueprint grid, used behind the hero/contact ─────── */
+  .grid-lines {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 72px 72px;
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0%, #000 20%, transparent 72%);
+    mask-image: radial-gradient(ellipse at 50% 0%, #000 20%, transparent 72%);
+  }
+
+  /* ── Marquee track (duplicated content scrolls by -50%) ─ */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee var(--marquee-duration, 34s) linear infinite;
+    will-change: transform;
+  }
+
+  .marquee:hover .marquee-track,
+  .marquee-track[data-paused='true'] {
+    animation-play-state: paused;
+  }
+
+  /* ── 3D tilt (v-tilt directive) ───────────────────────── */
+  .tilt-target {
+    transition: transform 0.5s var(--ease-out-expo);
+  }
+
+  .tilt-target[data-tilt-active='true'] {
+    will-change: transform;
+    transition: transform 0.12s linear;
+  }
+
+  /* ══════════════════════════════════════════════════════
+     Static stand-in for the WebGL room. Drawn from the same
+     --room-* tokens, so reduced motion, ?perf=low and the
+     prerenderer all see the composition the scene renders.
+     The two blurred layers are static, so they are painted
+     once — never on an animated frame.
+     ══════════════════════════════════════════════════════ */
+  .stage-poster {
+    overflow: hidden;
+    background:
+      radial-gradient(
+        115% 85% at 16% 4%,
+        color-mix(in srgb, var(--room-beam) 20%, transparent),
+        transparent 58%
+      ),
+      radial-gradient(
+        70% 55% at 72% 96%,
+        color-mix(in srgb, var(--room-beam) 9%, transparent),
+        transparent 70%
+      ),
+      linear-gradient(180deg, color-mix(in srgb, var(--room-wall) 92%, var(--ink)) 0%, var(--ink) 82%);
+    transition: opacity 900ms var(--ease-out-quint);
+  }
+
+  .stage-poster::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: -12%;
+    width: 44%;
+    height: 200%;
+    rotate: 26deg;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in srgb, var(--room-beam) 15%, transparent) 46%,
+      transparent
+    );
+    filter: blur(22px);
+  }
+
+  .stage-poster::after {
+    content: '';
+    position: absolute;
+    left: 8%;
+    right: 18%;
+    bottom: -6%;
+    height: 34%;
+    background: radial-gradient(
+      closest-side,
+      color-mix(in srgb, var(--room-beam) 10%, transparent),
+      transparent
+    );
+    filter: blur(28px);
+  }
+
+  /* ══════════════════════════════════════════════════════
+     Portrait print — the photograph as a framed object.
+     Deliberately physical: a bronze hairline, a paper mat,
+     the key light raking from the top-left, and a contact
+     shadow under the frame.
+     ══════════════════════════════════════════════════════ */
+  .portrait {
+    position: relative;
+    width: 100%;
+    max-width: 30rem;
+    margin-inline: auto;
+    rotate: -0.7deg;
+    transition: rotate 900ms var(--ease-out-expo);
+  }
+
+  .portrait:hover {
+    rotate: 0deg;
+  }
+
+  .portrait__mat {
+    position: relative;
+    padding: clamp(8px, 1.1vw, 14px);
+    background: linear-gradient(
+      145deg,
+      color-mix(in srgb, var(--elevated) 92%, var(--bronze-line)),
+      var(--surface)
+    );
+    border: 1px solid var(--bronze-line);
+    box-shadow:
+      var(--edge-light),
+      0 1px 2px rgb(0 0 0 / 0.4),
+      0 18px 40px -22px rgb(0 0 0 / 0.85),
+      0 60px 120px -60px rgb(0 0 0 / 1);
+  }
+
+  /* The sheen across the glass sits above the print. No `mix-blend-mode`:
+     a blend mode here forces the frame into its own compositing layer, and
+     some GPU/driver combinations then paint the print black. A plain
+     translucent gradient gives the same read with none of the risk. */
+  .portrait__glass {
+    position: absolute;
+    inset: clamp(8px, 1.1vw, 14px);
+    pointer-events: none;
+    background: linear-gradient(
+      118deg,
+      transparent 34%,
+      rgb(255 247 235 / 0.07) 42%,
+      rgb(255 247 235 / 0.02) 48%,
+      transparent 58%
+    );
+  }
+
+  .portrait__print {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    background: var(--tile);
+    filter: contrast(1.02) saturate(0.9);
+    transition: opacity 700ms var(--ease-out-quint);
+  }
+
+  /* Hand-off to the WebGL print: the flat image steps aside only once the
+     3D scene reports it is rendering, so the composition never blanks. */
+  .portrait__print.is-handoff {
+    opacity: 0;
+  }
+
+  .portrait__caption {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-left: 2px;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+  }
+
+  /* ══════════════════════════════════════════════════════
+     Hero — editorial two-column composition. The type owns
+     the left column, the print owns the right; nothing is
+     centred, which is what makes it read as a spread.
+     ══════════════════════════════════════════════════════ */
+  .hero-grid {
+    display: grid;
+    gap: 0;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* On a phone the print sits between the role and the copy, so the face
+     arrives before the paragraphs. On desktop it becomes the right column. */
+  .hero-print {
+    margin-top: clamp(2rem, 5vw, 2.75rem);
+  }
+
+  @media (min-width: 900px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.92fr);
+      grid-template-rows: auto 1fr;
+      grid-template-areas:
+        'copy print'
+        'tail print';
+      column-gap: clamp(3rem, 6vw, 6rem);
+      align-items: start;
+    }
+
+    .hero-copy {
+      grid-area: copy;
+    }
+
+    .hero-print {
+      grid-area: print;
+      align-self: center;
+      margin-top: 0;
+    }
+
+    .hero-tail {
+      grid-area: tail;
+    }
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .hero-eyebrow::before {
+    content: '';
+    width: 2.5rem;
+    height: 1px;
+    background: var(--bronze-line);
+  }
+
+  .hero-name {
+    margin-top: 1.6rem;
+    font-family: var(--font-serif);
+    font-weight: 400;
+    font-size: clamp(3.1rem, 8.4vw, 6.6rem);
+    line-height: 0.9;
+    letter-spacing: -0.03em;
+    color: var(--copy);
+    text-wrap: balance;
+  }
+
+  .hero-name__line {
+    display: block;
+  }
+
+  .hero-name__line--accent {
+    font-style: italic;
+    color: var(--accent);
+    padding-left: 0.04em;
+  }
+
+  .hero-role {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1.6rem;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--copy);
+  }
+
+  .hero-role::after {
+    content: '';
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--bronze-line);
+  }
+
+  .hero-role__focus {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+  }
+
+  .hero-lead {
+    margin-top: 1.25rem;
+    max-width: 34ch;
+    font-size: clamp(1.0625rem, 1.6vw, 1.25rem);
+    line-height: 1.62;
+    color: var(--muted);
+  }
+
+  .hero-desc {
+    margin-top: 0.75rem;
+    max-width: 46ch;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: var(--muted-2);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+  }
+
+  .hero-socials {
+    margin-top: 1.25rem;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 2rem;
+    border-top: 1px solid var(--hairline);
+  }
+
+  @media (min-width: 640px) {
+    .hero-stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .hero-stat {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.35rem;
+    padding: 1.1rem 0.9rem 0 0;
+    border-right: 1px solid var(--hairline);
+  }
+
+  .hero-stat:last-child {
+    border-right: 0;
+  }
+
+  .hero-stat__value {
+    font-family: var(--font-serif);
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--copy);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hero-stat__label {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+  }
+
+  .hero-scroll {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-top: clamp(1.75rem, 3vw, 2.5rem);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted-2);
+    transition: color var(--dur) var(--ease-out-quint);
+  }
+
+  .hero-scroll:hover {
+    color: var(--accent);
+  }
+
+  .hero-scroll__line {
+    position: relative;
+    width: 1px;
+    height: 2.25rem;
+    overflow: hidden;
+    background: var(--hairline);
+  }
+
+  .hero-scroll__line::after {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: -40%;
+    height: 40%;
+    background: var(--accent);
+    animation: scroll-trace 2.6s var(--ease-in-out-soft) infinite;
+  }
+
+  @keyframes scroll-trace {
+    0% {
+      top: -40%;
+    }
+    60%,
+    100% {
+      top: 100%;
+    }
+  }
+
+  /* ── Static stand-in for the WebGL hero ──────────────────
+     Also what the prerenderer captures, so it has to look
+     deliberate rather than empty. `HeroFallback.vue` paints
+     the table on top of this haze. */
+  .hero-fallback {
+    background:
+      radial-gradient(
+        120% 62% at 50% 104%,
+        color-mix(in srgb, var(--scene-felt) 96%, transparent),
+        transparent 76%
+      ),
+      radial-gradient(
+        58% 38% at 50% 10%,
+        color-mix(in srgb, var(--accent) 16%, transparent),
+        transparent 72%
+      ),
+      radial-gradient(
+        44% 30% at 78% 26%,
+        color-mix(in srgb, var(--violet) 12%, transparent),
+        transparent 74%
+      );
+    transition: opacity 0.9s var(--ease-out-quint);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Page transition */
 .page-enter-active,
 .page-leave-active {
   transition:
-    opacity 0.35s ease,
-    transform 0.35s ease;
+    opacity 0.4s var(--ease-out-quint),
+    transform 0.5s var(--ease-out-expo),
+    filter 0.4s var(--ease-out-quint);
 }
 .page-enter-from {
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(14px) scale(0.995);
+  filter: blur(6px);
 }
 .page-leave-to {
   opacity: 0;
   transform: translateY(-8px);
+  filter: blur(4px);
 }
 
-/* ── Accessibility: reduced motion ────────────────────────── */
+/* ══════════════════════════════════════════════════════════
+   Scroll-driven accents (progressive enhancement)
+   ──────────────────────────────────────────────────────────
+   Browsers with scroll-driven animations (Chrome 115+) tie these
+   directly to the scroll position: no scroll listener, no rAF,
+   no main-thread work at all. Everywhere else the final state is
+   what renders, so nothing depends on support.
+   ────────────────────────────────────────────────────────── */
+@keyframes scrubbed-rise {
+  from {
+    transform: translateY(34px);
+    opacity: 0.35;
+  }
+  to {
+    transform: translateY(-26px);
+    opacity: 1;
+  }
+}
+
+@keyframes scrubbed-grow {
+  from {
+    transform: scaleY(0.05);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-rise {
+      animation: scrubbed-rise linear both;
+      animation-timeline: view();
+      animation-range: entry 8% cover 55%;
+    }
+
+    .scroll-grow {
+      transform-origin: top;
+      animation: scrubbed-grow linear both;
+      animation-timeline: view();
+      animation-range: entry 35% cover 70%;
+    }
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Language switch (View Transitions) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.45s;
+  animation-timing-function: var(--ease-out-quint);
+}
+
+/* ── Fallbacks ────────────────────────────────────────────── */
+@supports not (backdrop-filter: blur(1px)) {
+  .nav-glass,
+  .glass-strong {
+    background: var(--surface);
+  }
+}
+
+/* Backdrop blur is the most expensive effect left, and on a phone it runs under
+   a fixed bar that re-blurs on every scroll frame. */
+@media (max-width: 900px) {
+  .nav-glass,
+  .glass-strong {
+    background: var(--surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* ══════════════════════════════════════════════════════════
+   Low-power mode (<html data-perf="low">, set by usePerfMode)
+   ──────────────────────────────────────────────────────────
+   Layout, colour and readability stay identical; only the
+   always-running decoration is dropped. */
+[data-perf='low'] .grain-layer,
+[data-perf='low'] .grid-lines,
+[data-perf='low'] .orb-vignette {
+  display: none;
+}
+
+[data-perf='low'] .aurora-blob,
+[data-perf='low'] .animate-float,
+[data-perf='low'] .animate-float-slow {
+  animation: none !important;
+}
+
+[data-perf='low'] .nav-glass,
+[data-perf='low'] .glass-strong {
+  background: var(--surface);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   Accessibility: reduced motion */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -431,5 +1215,11 @@ button,
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  /* Ambient decoration freezes — it carries no information. */
+  .aurora-blob,
+  .marquee-track {
+    animation: none !important;
+    transform: none !important;
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <ScrollProgress />
-  <Backdrop />
+  <AuroraBackground />
 
   <Navbar />
 
@@ -21,12 +21,16 @@
 import { RouterView } from 'vue-router'
 import { useSmoothScroll } from '@/composables/useSmoothScroll'
 import { useTheme } from '@/composables/useTheme'
+import { usePerfMode } from '@/composables/usePerfMode'
 
 import Navbar from '@/components/Navbar.vue'
 import Footer from '@/components/Footer.vue'
 import ScrollProgress from '@/components/ScrollProgress.vue'
-import Backdrop from '@/components/Backdrop.vue'
+import AuroraBackground from '@/components/ui/AuroraBackground.vue'
 
 useSmoothScroll()
 useTheme()
+// Marks <html data-perf="high|low"> before the first frame, so the expensive
+// ambient layers never even start on weak devices.
+usePerfMode()
 </script>

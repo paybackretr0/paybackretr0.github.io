@@ -2,8 +2,12 @@
   <section id="contact" class="section section-loose scroll-mt-24">
     <div
       v-reveal
+      v-spotlight
       class="glass-strong relative overflow-hidden rounded-[26px] px-6 py-16 text-center sm:px-14 sm:py-20"
     >
+      <!-- Blueprint grid inside the CTA, masked to the top edge -->
+      <div aria-hidden="true" class="grid-lines pointer-events-none absolute inset-0 opacity-60" />
+
       <div class="relative">
         <p
           class="flex items-center justify-center gap-3 font-mono text-[11px] tracking-[0.28em] text-accent uppercase"
@@ -17,7 +21,7 @@
         >
           <template v-if="titleParts.length > 1">
             <span v-for="(part, i) in titleParts" :key="i">
-              <em v-if="i % 2 === 1" class="accent-serif text-gradient">{{ part }}</em>
+              <em v-if="i % 2 === 1" class="accent-serif accent-text">{{ part }}</em>
               <template v-else>{{ part }}</template>
             </span>
           </template>

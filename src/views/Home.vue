@@ -4,7 +4,7 @@
     <AboutSection />
 
     <div class="mx-auto max-w-6xl px-6">
-      <div class="h-px bg-line" />
+      <div class="hairline" />
     </div>
 
     <ExperienceSection />

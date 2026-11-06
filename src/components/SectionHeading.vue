@@ -1,22 +1,22 @@
 <template>
   <div v-reveal class="max-w-3xl" :class="alignClasses">
-    <!-- Mono index + rule + eyebrow -->
+    <!-- Mono index + gradient rule + eyebrow -->
     <p
       class="flex items-center gap-3 font-mono text-[11px] tracking-[0.28em] text-accent uppercase"
       :class="eyebrowAlign"
     >
       <span v-if="index" class="text-muted-2">{{ index }}</span>
-      <span class="h-px w-8 bg-accent/40" />
+      <span class="h-px w-10 bg-accent/40" />
       <span>{{ eyebrow }}</span>
     </p>
 
     <h2
-      class="mt-5 text-[2.15rem] leading-[1.08] font-bold tracking-tight text-copy sm:text-5xl sm:leading-[1.05] lg:text-[3.4rem] lg:leading-[1.02]"
+      class="mt-5 font-serif text-[2.4rem] leading-[1.02] tracking-[-0.02em] text-copy sm:text-[3.1rem] lg:text-[3.7rem]"
     >
       <!-- Editorial serif accent: the matching word is set in italic serif -->
       <template v-if="parts.length > 1">
         <span v-for="(part, i) in parts" :key="i">
-          <em v-if="i % 2 === 1" class="accent-serif text-gradient">{{ part }}</em>
+          <em v-if="i % 2 === 1" class="accent-serif accent-text">{{ part }}</em>
           <template v-else>{{ part }}</template>
         </span>
       </template>

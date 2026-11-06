@@ -165,6 +165,7 @@ const translations = {
       certification: 'Certification',
       award: 'Award',
       hackathon: 'Hackathon',
+      verify: 'Verify credential',
     },
     contact: {
       eyebrow: 'Contact',
@@ -289,6 +290,7 @@ const translations = {
       certification: 'Sertifikasi',
       award: 'Penghargaan',
       hackathon: 'Hackathon',
+      verify: 'Verifikasi sertifikat',
     },
     contact: {
       eyebrow: 'Kontak',
@@ -314,11 +316,29 @@ export function useLang() {
    * Switch languages. Each language lives at its own URL, so the toggle
    * navigates instead of only swapping state — the router applies the language
    * and its head tags, and the address bar stays shareable.
+   *
+   * Where the browser supports it, the navigation is wrapped in a View
+   * Transition so the two prerendered pages cross-fade instead of flashing
+   * white. Reduced motion keeps the plain, instant swap.
    */
   const toggleLang = () => {
     const next = otherLang(locale.value)
-    setLocale(next)
-    void router.push(languages[next].path)
+
+    const navigate = () => {
+      setLocale(next)
+      void router.push(languages[next].path)
+    }
+
+    const doc = document as Document & {
+      startViewTransition?: (callback: () => void) => unknown
+    }
+
+    const animated =
+      typeof doc.startViewTransition === 'function' &&
+      !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (animated) doc.startViewTransition?.(navigate)
+    else navigate()
   }
 
   const t = computed(() => translations[locale.value])

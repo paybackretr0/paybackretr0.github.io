@@ -17,6 +17,9 @@ coverage
 # Agent tooling workspace
 .agents
 
+# Visual QA screenshots (scripts/shots.mjs)
+.screenshots
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

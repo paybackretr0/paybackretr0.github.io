@@ -9,6 +9,7 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "prerender": "node scripts/prerender.mjs",
+    "shots": "node scripts/shots.mjs",
     "type-check": "vue-tsc --build",
     "format": "prettier --write --experimental-cli src/"
   },
@@ -20,12 +21,14 @@
     "motion-v": "^2.3.0",
     "pinia": "^3.0.4",
     "tailwindcss": "^4.3.1",
+    "three": "^0.187.0",
     "vue": "^3.5.38",
     "vue-router": "^5.1.0"
   },
   "devDependencies": {
     "@tsconfig/node24": "^24.0.4",
     "@types/node": "^24.13.2",
+    "@types/three": "^0.187.0",
     "@vitejs/plugin-vue": "^6.0.7",
     "@vue/tsconfig": "^0.9.1",
     "npm-run-all2": "^9.0.2",

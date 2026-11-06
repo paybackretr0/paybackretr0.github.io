@@ -59,37 +59,99 @@ the language folder (`/en/cv.pdf`), which returned 404 on GitHub Pages even
 though it appeared to work in development. To swap a PDF, replace the file in
 `public/` and keep the name — or update the name in `src/data/docs.ts`.
 
-## Design system — Aurora Glass
+## Design system — Studio Marble
 
-The UI is built from one visual language, all of it defined in
-[`src/style.css`](src/style.css):
+A gallery at night: warm near-black walls, bone type, a single bronze accent and
+one soft skylight. Everything lives in [`src/style.css`](src/style.css).
 
-- **Tokens** — `--ink` / `--surface` / `--glass` / `--glass-border`, the solid
-  brand colours (`--primary`, `--violet`, `--cyan` — buttons and accent text use
-  them flat, never as a gradient), motion easings (`--ease-out-expo`) and the
-  aurora washes (`--aurora-1..3`). The light theme overrides the same names under
-  `[data-theme='light']`, so a single attribute re-themes everything.
-- **Surfaces** — `.glass`, `.glass-strong`, `.nav-glass`, `.nav-panel` and the
-  legacy `.neu-*` names, kept as aliases so older markup keeps rendering.
-- **Type** — `accent-serif` (Instrument Serif italic) and `.accent-text` (solid
-  accent colour) for the accent word inside a heading.
-- **Effects** — `.aurora-blob` + `.grain-layer` (background, in
-  `AuroraBackground.vue`), `.spotlight-card` (cursor glow, driven by `v-spotlight`),
-  `.tilt-target` (3D tilt, driven by `v-tilt`), `.marquee-track` (`Marquee.vue`).
-- **Motion** — `v-reveal` (fade/rise/blur on scroll), `MaskedLines.vue` (masked
-  line reveal with GSAP), `.scroll-rise` / `.scroll-grow` (CSS scroll-driven
-  animations where supported), `useMagnetic` (magnetic buttons) and the page /
-  language View Transitions.
+- **Tokens** — `--ink` / `--surface` / `--elevated`, the bone `--copy` ramp
+  (`--muted`, `--muted-2`), one bronze accent family (`--primary`, `--accent`),
+  motion easings (`--ease-out-*`) and the skylight wash (`--aurora-1..3`, still
+  named for the layer they replaced). The light theme is the same room at
+  midday — plaster walls, warm ink type — and overrides the same names under
+  `[data-theme='light']`, so one attribute re-themes everything.
+- **Depth** — physical, not glassy: `--shadow-ambient` / `--shadow-lift` are
+  contact + ambient + key shadow stacks, `--edge-light` is the 1px highlight on
+  the edge facing the light, and `--hairline` draws the rules. The legacy
+  `.neu-*` / `.glass` classes remain as aliases so untouched markup keeps
+  rendering while sections are rebuilt one at a time.
+- **Type** — Instrument Serif carries the display voice (`.hero-name`,
+  section headings, stat numerals); Cabinet Grotesk handles UI weight, Manrope
+  body copy, JetBrains Mono the captions, indices and brackets.
+- **Hero** — an editorial two-column spread (`.hero-grid`): type on the left,
+  the portrait print on the right, and nothing centred. On a phone the print
+  moves up between the role and the body copy so the face arrives early.
+- **Portrait** — `.portrait*` renders the photograph as a physical object: a
+  bronze hairline, a paper mat, a sheen across the glass and a contact shadow.
+  Deliberately **not** a `mix-blend-mode` layer — a blend mode there forces the
+  frame into its own compositing layer, and some GPU/driver combinations then
+  paint the print black.
+- **Effects** — `.grain-layer` (film grain, `AuroraBackground.vue`),
+  `.spotlight-card` (cursor glow, `v-spotlight`), `.tilt-target` (3D tilt,
+  `v-tilt`), `.marquee-track` (`Marquee.vue`).
+- **Motion** — `v-reveal`, `.scroll-rise` / `.scroll-grow` (CSS scroll-driven
+  where supported), `useMagnetic` (magnetic buttons), a single expo ease family
+  and the page / language View Transitions.
 
-### 3D hero
+### Portrait images
 
-`components/three/HeroScene.vue` mounts the WebGL object in
-`components/three/heroScene.three.ts`. `three` is imported dynamically, so it
-ships as its own lazy chunk and only loads once the hero is on screen. The scene
-skips itself for `prefers-reduced-motion`, touch/low-memory devices get fewer
-particles and a lower pixel ratio, a frame-time governor degrades it further if
-needed, and a CSS fallback (`.hero-fallback`) covers everything else — including
-the prerenderer, which always runs with reduced motion.
+`assets-src/portrait.jpg` is the source; `node scripts/images.mjs` turns it into
+everything under `public/img/` — `portrait-{480,720,1080,1440}.webp` (untinted),
+`portrait-print-*` (warm print grade, what the site uses) and
+`portrait-duotone-*`, plus `public/og-cover.jpg` for social previews. The
+script runs in Chrome via `puppeteer-core`, so there is no image library to
+install; its output is committed, so a normal build never pays for it.
+
+`components/ui/PortraitFrame.vue` is a plain `<img>` with `srcset`, explicit
+`width`/`height` and `fetchpriority="high"` — it is the LCP candidate, it is
+what the prerenderer captures, and it stays on screen for everyone whose device
+skips WebGL.
+
+### 3D stage
+
+`components/stage/RoomStage.vue` owns the lifecycle and mounts
+`components/three/roomScene.three.ts`. `three` is imported dynamically, so it
+ships as its own lazy chunk and only loads once the hero is on screen.
+
+- **`roomScene.three.ts`** — a dark room with one shaft of light, dust in the
+  air and a pool of light on the floor. Everything is procedural: the plaster is
+  a generated `CanvasTexture` used as both colour and bump, the dust sprite is
+  drawn to a canvas, and the environment is a `PMREMGenerator` over a two-panel
+  scene. There is no model, no texture file and no HDRI.
+- **The shaft is quads, not a box.** Two planes crossed at 90° per layer. A box
+  puts every one of its faces on the fallout edge of the shader (alpha 0), so it
+  renders as nothing — that bug shipped once already.
+- **Themes are re-balanced, not re-tinted.** `applyTuning()` derives a 0→1
+  "night or day" value from `--room-wall`'s luminance and drives everything from
+  it. Night: the shaft is additive light in the air. Day: the same window
+  pattern is drawn as **shadow on the wall** with normal blending, because an
+  additive beam on plaster just burns the wall white — which is why the light
+  theme used to look like a flat empty page. It runs at boot as well as on a
+  theme switch, otherwise a visitor who loads the site in the day theme gets the
+  night intensities.
+- **Shadows need their own token.** `--room-shadow` exists because `--ink` is
+  the *light* colour in the day theme; painting the shadow with it made the
+  shadow brighter than the wall.
+- **`HeroScene.vue` / `heroScene.three.ts` / `billiardScene.three.ts`** are the
+  previous stages, still on disk and still switchable, so a rollback is a query
+  parameter rather than a revert.
+
+`components/stage/RoomStage.vue` skips the scene entirely for
+`prefers-reduced-motion`, `?perf=low` and browsers without WebGL, stops the loop
+when the tab is hidden or the hero leaves the viewport, and degrades the pixel
+ratio if frames get slow. In all of those cases `.stage-poster` — a CSS-only
+stand-in painted from the same `--room-*` tokens — is what the visitor sees, and
+it is what the prerenderer captures.
+
+Both scenes skip themselves for `prefers-reduced-motion`, drop resolution and
+antialiasing on touch/low-memory devices, degrade further if the frame-time
+governor trips, and stop rendering when the hero leaves the viewport or the tab
+is hidden.
+
+`components/ui/HeroFallback.vue` is the static poster: an SVG table painted from
+the same `--scene-*` tokens. It is what the prerenderer, reduced-motion visitors,
+`?perf=low` and browsers without WebGL see, so it has to look deliberate rather
+than empty — it is also what ends up in the prerendered HTML.
 
 ### Performance mode
 

@@ -59,6 +59,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import {
+  Bot,
   Code,
   Container,
   Database,
@@ -88,10 +89,11 @@ const groupIcons: Record<TechGroup['icon'], LucideIcon> = {
   devops: Container,
   tools: Wrench,
   architecture: Layers,
+  ai: Bot,
 }
 
 /** Bento spans — feature groups take a full row on 2-col and half on 4-col. */
-const wide = ['frontend', 'backend', 'mobile', 'languages']
+const wide = ['frontend', 'backend', 'mobile', 'languages', 'ai']
 
 const spans: Record<string, string> = {
   frontend: 'sm:col-span-2 lg:col-span-2',
@@ -102,5 +104,8 @@ const spans: Record<string, string> = {
   languages: 'sm:col-span-2 lg:col-span-2',
   tools: 'lg:col-span-1',
   architecture: 'lg:col-span-1',
+  // The agents close the section as a full-width band: 11 chips need the room,
+  // and it keeps the 4-column rhythm above it unbroken.
+  ai: 'sm:col-span-2 lg:col-span-4',
 }
 </script>

@@ -10,6 +10,7 @@ export interface TechGroup {
     | 'devops'
     | 'tools'
     | 'architecture'
+    | 'ai'
   items: string[]
 }
 
@@ -68,5 +69,25 @@ export const techStack: TechGroup[] = [
     label: { en: 'Architecture & Patterns', id: 'Arsitektur & Pola Desain' },
     icon: 'architecture',
     items: ['MVC', 'MVVM', 'Clean Architecture', 'Multi-Role Authentication'],
+  },
+  {
+    // Where the agents are listed first and the models they run on follow.
+    // Cline and Freebuff lead because they carry most of the day-to-day work.
+    id: 'ai',
+    label: { en: 'AI Agents & Models', id: 'AI Agent & Model' },
+    icon: 'ai',
+    items: [
+      'Cline',
+      'Freebuff',
+      'Cursor',
+      'Codex',
+      'Claude',
+      'Gemini',
+      'ChatGPT',
+      'DeepSeek',
+      'Antigravity',
+      'Opencode',
+      'Trae AI',
+    ],
   },
 ]

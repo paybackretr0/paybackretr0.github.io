@@ -29,7 +29,7 @@
         <li v-for="link in links" :key="link.id">
           <a
             :href="`#${link.id}`"
-            class="relative rounded-lg px-3.5 py-2 text-sm font-medium transition-colors duration-300"
+            class="relative px-3 py-2 font-mono text-[11px] tracking-[0.2em] uppercase transition-colors duration-300"
             :class="activeId === link.id ? 'text-copy' : 'text-muted hover:text-copy'"
             @click.prevent="scrollTo(`#${link.id}`)"
           >
@@ -46,7 +46,7 @@
       <div class="flex shrink-0 items-center gap-2 sm:gap-2.5">
         <button
           type="button"
-          class="neu-raised-sm inline-flex h-10 w-10 items-center justify-center rounded-xl text-copy transition-all duration-300 active:shadow-[var(--neu-pressed)]"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-copy transition-colors duration-300 hover:border-[var(--bronze-line)] hover:text-accent"
           :aria-label="theme === 'dark' ? t.nav.lightMode : t.nav.darkMode"
           @click="toggleTheme"
         >
@@ -66,7 +66,7 @@
 
         <button
           type="button"
-          class="neu-raised-sm inline-flex h-10 w-10 items-center justify-center rounded-xl text-copy transition md:hidden"
+          class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-line text-copy transition hover:border-[var(--bronze-line)] hover:text-accent md:hidden"
           :aria-expanded="open"
           aria-label="Toggle navigation"
           @click="open = !open"

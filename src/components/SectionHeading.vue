@@ -11,7 +11,7 @@
     </p>
 
     <h2
-      class="mt-5 text-[2.15rem] leading-[1.08] font-bold tracking-tight text-copy sm:text-5xl sm:leading-[1.05] lg:text-[3.4rem] lg:leading-[1.02]"
+      class="mt-5 font-serif text-[2.4rem] leading-[1.02] tracking-[-0.02em] text-copy sm:text-[3.1rem] lg:text-[3.7rem]"
     >
       <!-- Editorial serif accent: the matching word is set in italic serif -->
       <template v-if="parts.length > 1">

@@ -41,6 +41,8 @@ export const techStack: TechGroup[] = [
       'Android SDK',
       'Jetpack Compose',
       'Flutter',
+      'React Native',
+      'Expo Go',
       'XML Layout',
       'Coroutines',
       'Room Database',
@@ -50,7 +52,7 @@ export const techStack: TechGroup[] = [
     id: 'database',
     label: { en: 'Database & Caching', id: 'Database & Caching' },
     icon: 'database',
-    items: ['MySQL', 'PostgreSQL', 'SQLite', 'Redis'],
+    items: ['MySQL', 'PostgreSQL', 'Oracle DB', 'SQLite', 'Redis'],
   },
   {
     id: 'devops',

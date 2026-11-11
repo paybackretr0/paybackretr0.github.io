@@ -344,6 +344,7 @@ export function createRoomScene(
   ]
 
   const beamMaterials: THREE.ShaderMaterial[] = []
+  const beamMeshes: THREE.Mesh[] = []
   for (const layer of beamLayers) {
     const material = track(
       new THREE.ShaderMaterial({
@@ -372,6 +373,7 @@ export function createRoomScene(
       mesh.scale.set(width, height, beamLength)
       mesh.frustumCulled = false
       scene.add(mesh)
+      beamMeshes.push(mesh)
     }
   }
 
@@ -473,7 +475,8 @@ export function createRoomScene(
       sizeAttenuation: true,
     }),
   )
-  scene.add(new THREE.Points(dustGeometry, dustMaterial))
+  const dustPoints = new THREE.Points(dustGeometry, dustMaterial)
+  scene.add(dustPoints)
 
   /**
    * Rebalances the additive layers for the current theme.
@@ -515,6 +518,15 @@ export function createRoomScene(
     if (wallColor) wallColor.value.set(next.shadow)
     const wallIntensity = wallShadowMaterial.uniforms.uIntensity
     if (wallIntensity) wallIntensity.value = day ? 0.5 : 0
+
+    // Anything that ends up at ~zero alpha must not be drawn at all. Without
+    // this the day theme kept paying for six full-screen additive quads plus the
+    // dust every single frame while showing none of them — which is exactly why
+    // the light theme felt heavy while the scene looked static.
+    const beamsOn = lift > 0.02
+    for (const mesh of beamMeshes) mesh.visible = beamsOn
+    dustPoints.visible = beamsOn
+    wallShadow.visible = day
 
     // Exposure: the night room needs a strong key to carve the wall, the day
     // room blows out if it keeps the same one.
@@ -591,17 +603,22 @@ export function createRoomScene(
     pointer.x += (pointer.targetX - pointer.x) * 0.05
     pointer.y += (pointer.targetY - pointer.y) * 0.05
 
-    for (const material of beamMaterials) {
-      const uniform = material.uniforms.uTime
-      if (uniform) uniform.value = time
+    // The shaft and the dust are only animated while they are drawn.
+    if (beamMeshes[0]?.visible) {
+      for (const material of beamMaterials) {
+        const uniform = material.uniforms.uTime
+        if (uniform) uniform.value = time
+      }
+      updateDust(time, delta)
     }
+
     const patchTime = patchMaterial.uniforms.uTime
     if (patchTime) patchTime.value = time
 
-    const wallTime = wallShadowMaterial.uniforms.uTime
-    if (wallTime) wallTime.value = time
-
-    updateDust(time, delta)
+    if (wallShadow.visible) {
+      const wallTime = wallShadowMaterial.uniforms.uTime
+      if (wallTime) wallTime.value = time
+    }
     updateCamera(time)
 
     if (!degraded && delta > 0) {

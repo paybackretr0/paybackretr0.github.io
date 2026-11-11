@@ -41,15 +41,15 @@ export const projects: Project[] = [
   {
     id: 'sipandam',
     title: {
-      en: 'SIPANDAM UNAND — TPBU Funeral Savings Information System',
-      id: 'SIPANDAM UNAND — Sistem Informasi Pandam TPBU',
+      en: 'SIPANDAM UNAND — TPBU Non-Public Cemetery Information System',
+      id: 'SIPANDAM UNAND — Sistem Informasi Taman Pemakaman Bukan Umum (TPBU)',
     },
     role: 'Full-Stack Developer',
     category: 'Web · Information System',
     year: 'Sep – Oct 2026',
     desc: {
-      en: 'Web-based system digitalizing every Tabungan Pemakaman Bersama (TPBU) funeral savings service at Universitas Andalas — from membership registration for university community members, maintenance fee and finance management, to funeral arrangements, grave site allocation and reporting.',
-      id: 'Sistem berbasis web yang mendigitalisasi seluruh layanan Tabungan Pemakaman Bersama (TPBU) Universitas Andalas — mulai dari pendaftaran keanggotaan civitas akademika, pengelolaan iuran pemeliharaan dan keuangan, hingga pengaturan pemakaman, alokasi lokasi makam, dan pelaporan.',
+      en: 'Web-based system digitalizing every Taman Pemakaman Bukan Umum (TPBU) service at Universitas Andalas — the university community’s members-only cemetery, not open to the general public — from membership registration, maintenance fee and finance management, to funeral arrangements, grave site allocation and reporting.',
+      id: 'Sistem berbasis web yang mendigitalisasi seluruh layanan Taman Pemakaman Bukan Umum (TPBU) Universitas Andalas — taman pemakaman khusus civitas akademika, bukan untuk umum — mulai dari pendaftaran keanggotaan, pengelolaan iuran pemeliharaan dan keuangan, hingga pengaturan pemakaman, alokasi lokasi makam, dan pelaporan.',
     },
     features: {
       en: [
